@@ -10,94 +10,73 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4">
+        android:layout_weight="0.5"
+        android:background="#d50000"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/img_mainView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/main_food_image"/>
+            android:layout_weight="7"
+            android:src="@drawable/title"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
     </LinearLayout>
 
-
-    <TableLayout
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
-        android:stretchColumns="*">
+        android:layout_weight="1"
+        android:background="@drawable/main_menuworldcup"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"/>
 
-        <TableRow
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:src="@drawable/main_menu"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:paddingTop="10dp"
-                android:paddingBottom="40dp"/>
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/main_foodworldcup"/>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:src="@drawable/main_food"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:paddingTop="10dp"
-                android:paddingBottom="40dp"/>
-        </TableRow>
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/main_recommendtodayfood"/>
 
-        <TableRow
-            android:layout_height="0dp"
-            android:layout_weight="1">
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/main_introduce"/>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:src="@drawable/main_calculator"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:paddingTop="10dp"
-                android:paddingBottom="40dp"/>
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/main_dutchpay"/>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:src="@drawable/main_recommendfood"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:paddingTop="10dp"
-                android:paddingBottom="40dp"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:src="@drawable/main_distribution"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:paddingTop="10dp"
-                android:paddingBottom="40dp"/>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="1"
-                android:src="@drawable/main_shop"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:paddingTop="10dp"
-                android:paddingBottom="40dp"/>
-        </TableRow>
-    </TableLayout>
 </LinearLayout>
