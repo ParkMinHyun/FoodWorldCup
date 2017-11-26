@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.NaverAPI.AsyncResponse;
@@ -23,6 +24,7 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
 
     ImageView foodImage1,foodImage2,foodImage3,foodImage4,foodImage5,foodImage6 ;
     EditText inputText;
+    TextView inputedTextView;
 
     private FoodInfomation foodInfomation;
     private BiMap<String,String> foodNameMap;
@@ -50,6 +52,7 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         foodImage5 = (ImageView)findViewById(R.id.image5);
         foodImage6 = (ImageView)findViewById(R.id.image6);
 
+        inputedTextView = (TextView)findViewById(R.id.inputedTextView);
         inputText = (EditText)findViewById(R.id.editFoodText);
     }
 
@@ -79,8 +82,7 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
             currentFoodImageView.setImageResource(resID);
 
             // 음식 이름 추가
-            addedFoodName.add(inputFoodName);
-            inputText.setText("");
+            addFoodName();
             foodNum ++;
             return;
         }
@@ -88,6 +90,13 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         // 네이버 검색 API 어싱크로 동작시키기
         new NaverAPI_AsnycTask(this,inputText.getText().toString()).execute();
         foodNum++;
+    }
+
+    // 음식 이름추가 및 Text 초기화
+    private void addFoodName() {
+        addedFoodName.add(inputText.getText().toString());
+        inputedTextView.setText(inputedTextView.getText()+ " "+ inputText.getText().toString());
+        inputText.setText("");
     }
 
     // 제비뽑기 버튼 클릭 시
@@ -109,8 +118,7 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
                 .into((ImageView)findViewById(getResources().getIdentifier("image"+foodNum, "id", getPackageName())));
 
         // 음식 이름 추가
-        addedFoodName.add(inputText.getText().toString());
-        inputText.setText("");
+        addFoodName();
     }
 
     @Override

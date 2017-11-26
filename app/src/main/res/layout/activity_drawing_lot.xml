@@ -12,7 +12,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1">
 
         <TextView
@@ -34,7 +34,9 @@
             android:inputType="text"
             android:maxLines="1"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingRight="10dp"
+            android:textCursorDrawable="@drawable/color_cursor">
+
             <requestFocus />
         </EditText>
 
@@ -48,21 +50,41 @@
             android:onClick="plusBtnClicked"></Button>
     </FrameLayout>
 
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/frame1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="추가한 음식: "
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/inputedTextView"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/frame1"
+        android:layout_below="@+id/ll"
         android:layout_marginTop="5dp"
         android:background="#bec0c4"
         tools:ignore="Orientation" />
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_below="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -74,6 +96,7 @@
             android:stretchColumns="0,1">
 
             <TableRow>
+
                 <ImageView
                     android:id="@+id/image1"
                     android:layout_width="50dp"
@@ -158,9 +181,9 @@
 
     <Button
         android:id="@+id/startDrawingLotBtn"
-        android:onClick="startDrawingLot"
-        android:layout_alignParentBottom="true"
-        android:text="제비뽑기 시작"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:onClick="startDrawingLot"
+        android:text="제비뽑기 시작" />
 </RelativeLayout>
