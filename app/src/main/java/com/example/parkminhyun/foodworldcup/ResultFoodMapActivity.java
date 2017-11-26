@@ -42,27 +42,23 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 
     private GPSInfo gpsInfo;
     private FoodInfomation foodInfomation;
+
     public BiMap<String, String> foodMap;
 
     private GoogleMap gMap;
     private EditText searchEditText;
 
     private int previousActivity;
-    private double latitude;
-    private double longitude;
-    LatLng currentPos;
+    private double latitude, longitude;
+    private LatLng currentPos;
     private Address currentDong;
 
     private String searchText;
-    private String cityName;
-    private String resultFoodName;
+    private String cityName,resultFoodName;
 
-    GeoPoint convertedGeoPoint;
-    private List<String> foodStoreName;
-    private List<String> foodStoreAddr;
-    private List<String> foodStoreMapX;
-    private List<String> foodStoreMapY;
+    private GeoPoint convertedGeoPoint;
 
+    private List<String> foodStoreName,foodStoreAddr,foodStoreMapX,foodStoreMapY;
     private List<Marker> markers;
 
     @Override
@@ -135,13 +131,13 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
                 : cityName + ' ' + resultFoodName;
 
         // 네이버 검색 API 어싱크로 동작시키기
-        ResultFoodMapActivity.JsoupAsyncTask jsoupAsyncTask = new ResultFoodMapActivity.JsoupAsyncTask();
-        jsoupAsyncTask.execute();
+        ResultFoodMapActivity.NaverSearchAPIAsyncTask naverSearchAPIAsyncTask = new ResultFoodMapActivity.NaverSearchAPIAsyncTask();
+        naverSearchAPIAsyncTask.execute();
 
 //        a.getAdminArea()+" "+a.getLocality()+" "+a.getThoroughfare();
     }
 
-    private class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
+    private class NaverSearchAPIAsyncTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -247,8 +243,8 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         addCurrentPosionMarker(currentPos);
 
         // 네이버 검색 API 어싱크로 동작시키기
-        ResultFoodMapActivity.JsoupAsyncTask jsoupAsyncTask = new ResultFoodMapActivity.JsoupAsyncTask();
-        jsoupAsyncTask.execute();
+        ResultFoodMapActivity.NaverSearchAPIAsyncTask naverSearchAPIAsyncTask = new ResultFoodMapActivity.NaverSearchAPIAsyncTask();
+        naverSearchAPIAsyncTask.execute();
 
     }
 

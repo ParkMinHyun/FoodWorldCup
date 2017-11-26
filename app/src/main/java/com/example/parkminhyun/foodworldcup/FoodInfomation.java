@@ -51,8 +51,4 @@ public class FoodInfomation {
     public BiMap getReverseMap() {
         return reverseMap;
     }
-
-    public void setReverseMap(BiMap reverseMap) {
-        this.reverseMap = reverseMap;
-    }
 }
