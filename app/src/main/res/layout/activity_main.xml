@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.parkminhyun.foodworldcup.MainActivity"
     android:orientation="vertical">
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -31,15 +31,23 @@
             android:layout_weight="1">
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#000000"
-                android:layout_weight="1"/>
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/main_menu"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:paddingTop="10dp"
+                android:paddingBottom="40dp"/>
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#293012"
-                android:layout_weight="1"/>
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/main_food"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:paddingTop="10dp"
+                android:paddingBottom="40dp"/>
         </TableRow>
 
         <TableRow
@@ -48,15 +56,23 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#235777"
-                android:layout_weight="1"/>
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/main_calculator"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:paddingTop="10dp"
+                android:paddingBottom="40dp"/>
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#111232"
-                android:layout_weight="1"/>
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/main_recommendfood"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:paddingTop="10dp"
+                android:paddingBottom="40dp"/>
         </TableRow>
 
         <TableRow
@@ -65,16 +81,23 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#312341"
-                android:layout_weight="1"/>
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/main_distribution"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:paddingTop="10dp"
+                android:paddingBottom="40dp"/>
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#FF2141"
-                android:layout_weight="1"/>
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/main_shop"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:paddingTop="10dp"
+                android:paddingBottom="40dp"/>
         </TableRow>
     </TableLayout>
-
 </LinearLayout>
