@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/rootView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/frame1"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
@@ -15,29 +17,25 @@
         android:layout_marginTop="10dp"
         android:layout_weight="1">
 
-        <TextView
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:text="음식 추가: "
-            android:textSize="16dp" />
+        <View
+            android:id="@+id/viewDummy"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
         <EditText
             android:id="@+id/editFoodText"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginLeft="80dp"
             android:background="@drawable/search_bar"
             android:drawablePadding="8dp"
+            android:hint="@string/add_foodName_DrawingLot"
             android:inputType="text"
             android:maxLines="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textCursorDrawable="@drawable/color_cursor">
-
-            <requestFocus />
         </EditText>
 
         <Button
@@ -46,23 +44,25 @@
             android:layout_height="30dp"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="10dp"
-            android:background="@drawable/success"
+            android:background="@drawable/plus"
             android:onClick="plusBtnClicked"></Button>
     </FrameLayout>
 
+
+
     <LinearLayout
         android:id="@+id/ll"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/frame1"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_below="@+id/frame1"
+        android:layout_marginLeft="10dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="추가한 음식: "
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:text="추가한 음식: " />
 
         <TextView
             android:id="@+id/inputedTextView"
@@ -80,15 +80,29 @@
         android:background="#bec0c4"
         tools:ignore="Orientation" />
 
+    <RelativeLayout
+        android:layout_below="@+id/line"
+        android:layout_above="@+id/startDrawingLotBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            android:background="@drawable/food_background" />
+
+    </RelativeLayout>
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -184,6 +198,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_corner_button"
         android:onClick="startDrawingLot"
-        android:text="제비뽑기 시작" />
+        android:padding="5dp"
+        android:text="제비뽑기 시작"
+        android:textSize="18sp" />
+
 </RelativeLayout>

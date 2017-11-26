@@ -1,12 +1,16 @@
 package com.example.parkminhyun.foodworldcup;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,8 +44,6 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         setContentView(R.layout.activity_drawing_lot);
 
         initProperty();
-        foodInfomation = FoodInfomation.getInstance();
-        foodNameMap = foodInfomation.getReverseMap();
     }
 
     private void initProperty(){
@@ -52,8 +54,13 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         foodImage5 = (ImageView)findViewById(R.id.image5);
         foodImage6 = (ImageView)findViewById(R.id.image6);
 
+        foodInfomation = FoodInfomation.getInstance();
+        foodNameMap = foodInfomation.getReverseMap();
+
         inputedTextView = (TextView)findViewById(R.id.inputedTextView);
         inputText = (EditText)findViewById(R.id.editFoodText);
+
+        RelativeLayout rootView = (RelativeLayout)findViewById(R.id.rootView);
     }
 
     // 추가 버튼 클릭시
@@ -64,6 +71,7 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
             Toast.makeText(getApplicationContext(), "음식을 입력해주세요", Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         ImageView currentFoodImageView;
         switch (foodNum){
@@ -101,6 +109,12 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
 
     // 제비뽑기 버튼 클릭 시
     public void startDrawingLot(View view) {
+
+        if(foodNum == 0) {
+            Toast.makeText(getApplicationContext(), "음식을 추가해주세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Random random = new Random();
 
         int randomNum = random.nextInt(foodNum);
@@ -119,10 +133,5 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
 
         // 음식 이름 추가
         addFoodName();
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
     }
 }
