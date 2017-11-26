@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.GPS.GPSInfo;
 import com.example.parkminhyun.foodworldcup.GPS.GeoPoint;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ResultFoodMapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class ResultFoodMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GPSInfo gpsInfo;
     private FoodInfomation foodInfomation;
@@ -90,6 +91,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
+        gMap.setOnMarkerClickListener(this);
 
         // 현재 위치 이동
         currentPos = new LatLng(gpsInfo.getLatitude(), gpsInfo.getLongitude());
@@ -135,6 +137,12 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         naverSearchAPIAsyncTask.execute();
 
 //        a.getAdminArea()+" "+a.getLocality()+" "+a.getThoroughfare();
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Toast.makeText(getApplicationContext(),marker.getTitle().toString(),Toast.LENGTH_SHORT).show();
+        return false;
     }
 
     private class NaverSearchAPIAsyncTask extends AsyncTask<Void, Void, Void> {
