@@ -27,4 +27,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.google.android.gms:play-services-maps:10.0.0'
     compile files('libs/picasso-2.5.2.jar')
+
+    compile 'com.google.guava:guava:23.5-android'
 }

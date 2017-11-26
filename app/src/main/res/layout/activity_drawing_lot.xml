@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,7 +35,6 @@
             android:maxLines="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
-
             <requestFocus />
         </EditText>
 
@@ -55,7 +55,8 @@
         android:layout_height="1dp"
         android:layout_below="@+id/frame1"
         android:layout_marginTop="5dp"
-        android:background="#bec0c4" />
+        android:background="#bec0c4"
+        tools:ignore="Orientation" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -77,24 +78,24 @@
                     android:id="@+id/image1"
                     android:layout_width="50dp"
                     android:layout_height="125dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:visibility="invisible" />
 
                 <ImageView
                     android:id="@+id/image2"
                     android:layout_width="50dp"
                     android:layout_height="125dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:visibility="invisible" />
             </TableRow>
 
@@ -104,24 +105,24 @@
                     android:id="@+id/image3"
                     android:layout_width="50dp"
                     android:layout_height="125dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="2dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:visibility="invisible" />
 
                 <ImageView
                     android:id="@+id/image4"
                     android:layout_width="50dp"
                     android:layout_height="125dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:visibility="invisible" />
             </TableRow>
 
@@ -131,24 +132,24 @@
                     android:id="@+id/image5"
                     android:layout_width="50dp"
                     android:layout_height="125dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="2dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:visibility="invisible" />
 
                 <ImageView
                     android:id="@+id/image6"
                     android:layout_width="50dp"
                     android:layout_height="125dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:gravity="center"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitXY"
                     android:visibility="invisible" />
             </TableRow>
 

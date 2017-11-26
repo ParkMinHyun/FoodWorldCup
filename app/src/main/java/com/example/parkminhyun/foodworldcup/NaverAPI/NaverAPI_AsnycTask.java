@@ -41,8 +41,7 @@ public class NaverAPI_AsnycTask extends AsyncTask<Void, Void, String>{
         String clientSecret = "wbyTPTRhuT";//애플리케이션 클라이언트 시크릿값";
         try {
             String text = URLEncoder.encode(inputText, "UTF-8");
-            String apiURL = "https://openapi.naver.com/v1/search/image.json?query=" + text + "&display=2&start=1&sort=sim"; // json 결과
-            //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
+            String apiURL = "https://openapi.naver.com/v1/search/image.json?query=" + text + "&display=10&filter=large"; // json 결과
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
@@ -83,8 +82,13 @@ public class NaverAPI_AsnycTask extends AsyncTask<Void, Void, String>{
             String a = jsonObject.getString("items");
 
             JSONArray jarray = new JSONArray(a);   // JSONArray 생성
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 10; i++) {
                 JSONObject jObject = jarray.getJSONObject(i);  // JSONObject 추출
+                if(jObject.getString("thumbnail").contains("jpg")) {
+                    Log.i("FoodThumnail",jObject.getString("thumbnail"));
+                    foodThumbnail = jObject.getString("thumbnail");
+                    return foodThumbnail;
+                }
                 foodThumbnail = jObject.getString("thumbnail");
             }
 

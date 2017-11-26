@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.common.collect.BiMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +42,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 
     private GPSInfo gpsInfo;
     private FoodInfomation foodInfomation;
-    public HashMap<String, String> map;
+    public BiMap<String, String> foodMap;
 
     private GoogleMap gMap;
     private EditText searchEditText;
@@ -70,7 +71,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         setContentView(R.layout.activity_result_food_map);
 
         foodInfomation = FoodInfomation.getInstance();
-        map = foodInfomation.getMap();
+        foodMap = foodInfomation.getMap();
         searchEditText = (EditText) findViewById(R.id.search);
 
         resultFoodName = getIntent().getExtras().getString("resultFood");
@@ -128,7 +129,10 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             cityName = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare();
 
 
-        searchText = (previousActivity==MenuWorldCupActivity.MenuWorldCupActivity) ? cityName + ' ' + map.get(resultFoodName) : cityName + ' ' + resultFoodName;
+        searchText =
+                (previousActivity == MenuWorldCupActivity.MenuWorldCupActivity)
+                ? cityName + ' ' + foodMap.get(resultFoodName)
+                : cityName + ' ' + resultFoodName;
 
         // 네이버 검색 API 어싱크로 동작시키기
         ResultFoodMapActivity.JsoupAsyncTask jsoupAsyncTask = new ResultFoodMapActivity.JsoupAsyncTask();
@@ -249,7 +253,6 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     }
 
     private void addCurrentPosionMarker(LatLng currentPos){
-
         gMap.addMarker(new MarkerOptions().position(currentPos)
                 .title("현재 위치")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));

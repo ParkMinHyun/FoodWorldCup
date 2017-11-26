@@ -1,11 +1,14 @@
 package com.example.parkminhyun.foodworldcup;
 
-import java.util.HashMap;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
 public class FoodInfomation {
 
     private static FoodInfomation instance;
-    public HashMap<String, String> map = new HashMap<String, String>();
+    public BiMap<String, String> map = HashBiMap.create();
+    public BiMap reverseMap;
+
 
     public static FoodInfomation getInstance(){
         if(instance==null)
@@ -18,6 +21,11 @@ public class FoodInfomation {
     }
 
     public FoodInfomation(){
+        initMap();
+        reverseMap = map.inverse();
+    }
+
+    private void initMap() {
         map.put("baekban","백반");
         map.put("bibimbab","비빔밥");
         map.put("bread","빵");
@@ -36,7 +44,15 @@ public class FoodInfomation {
         map.put("zazang","짜장면");
     }
 
-    public HashMap<String, String> getMap() {
+    public BiMap<String, String> getMap() {
         return map;
+    }
+
+    public BiMap getReverseMap() {
+        return reverseMap;
+    }
+
+    public void setReverseMap(BiMap reverseMap) {
+        this.reverseMap = reverseMap;
     }
 }

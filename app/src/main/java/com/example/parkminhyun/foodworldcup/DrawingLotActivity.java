@@ -3,6 +3,7 @@ package com.example.parkminhyun.foodworldcup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.NaverAPI.AsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAPI_AsnycTask;
+import com.google.common.collect.BiMap;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,6 +24,9 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
     ImageView foodImage1,foodImage2,foodImage3,foodImage4,foodImage5,foodImage6 ;
     EditText inputText;
 
+    private FoodInfomation foodInfomation;
+    private BiMap<String,String> foodNameMap;
+
     private List<String> addedFoodName = new ArrayList<>();
     private int foodNum = 0;
 
@@ -33,6 +38,8 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         setContentView(R.layout.activity_drawing_lot);
 
         initProperty();
+        foodInfomation = FoodInfomation.getInstance();
+        foodNameMap = foodInfomation.getReverseMap();
     }
 
     private void initProperty(){
@@ -48,15 +55,34 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
 
     // 추가 버튼 클릭시
     public void plusBtnClicked(View view) {
+        String inputFoodName = inputText.getText().toString();
+
+        if(inputFoodName.length() == 0) {
+            Toast.makeText(getApplicationContext(), "음식을 입력해주세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ImageView currentFoodImageView;
         switch (foodNum){
-            case 0: foodImage1.setVisibility(View.VISIBLE); break;
-            case 1: foodImage2.setVisibility(View.VISIBLE); break;
-            case 2: foodImage3.setVisibility(View.VISIBLE); break;
-            case 3: foodImage4.setVisibility(View.VISIBLE); break;
-            case 4: foodImage5.setVisibility(View.VISIBLE); break;
-            case 5: foodImage6.setVisibility(View.VISIBLE); break;
+            case 0: currentFoodImageView = foodImage1; foodImage1.setVisibility(View.VISIBLE); break;
+            case 1: currentFoodImageView = foodImage2; foodImage2.setVisibility(View.VISIBLE); break;
+            case 2: currentFoodImageView = foodImage3; foodImage3.setVisibility(View.VISIBLE); break;
+            case 3: currentFoodImageView = foodImage4; foodImage4.setVisibility(View.VISIBLE); break;
+            case 4: currentFoodImageView = foodImage5; foodImage5.setVisibility(View.VISIBLE); break;
+            case 5: currentFoodImageView = foodImage6; foodImage6.setVisibility(View.VISIBLE); break;
             default:
                 Toast.makeText(getApplicationContext(),"더 이상 추가할 수 없습니다",Toast.LENGTH_SHORT).show(); return;
+        }
+
+        if(foodNameMap.get(inputFoodName) != null){
+            int resID = getResources().getIdentifier(foodNameMap.get(inputFoodName), "drawable", getPackageName());
+            currentFoodImageView.setImageResource(resID);
+
+            // 음식 이름 추가
+            addedFoodName.add(inputFoodName);
+            inputText.setText("");
+            foodNum ++;
+            return;
         }
 
         // 네이버 검색 API 어싱크로 동작시키기
