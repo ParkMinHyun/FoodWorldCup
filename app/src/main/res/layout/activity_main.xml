@@ -196,6 +196,92 @@
         android:layout_gravity="left"
         android:background="#FFFFFFFF"
         android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imgView_myPage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:layout_gravity="bottom"
+            android:cropToPadding="true"
+            android:paddingHorizontal="30dp"
+            android:src="@drawable/main_man_circle"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="닉네임"
+            android:layout_weight="0.5"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#EBEBEB"
+            android:text="공 지 사 항"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#E2E1E2"
+            android:layout_weight="0.05"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#EBEBEB"
+            android:text="공 지 사 항"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#E2E1E2"
+            android:layout_weight="0.05"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#EBEBEB"
+            android:text="공 지 사 항"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#E2E1E2"
+            android:layout_weight="0.05"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="#DBDBDB"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:text="모바일 팀프로젝트\n2017년도 2학기"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#EBEBEB"
+            android:layout_weight="0.05"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:background="#DBDBDB"
+            android:text="안태현 박민현\n김채윤 황수정" />
     </LinearLayout>
 
 </FrameLayout>
