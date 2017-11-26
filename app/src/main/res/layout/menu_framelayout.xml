@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frameLayout_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="360dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#ffffff">
+
+        <ImageView
+            android:id="@+id/topImage"
+            android:layout_width="360dp"
+            android:layout_height="270dp"
+            android:onClick="topImageClick"
+            android:scaleType="centerCrop"/>
+
+
+        <ImageView
+            android:id="@+id/downImage"
+            android:layout_width="360dp"
+            android:layout_height="280dp"
+            android:onClick="downImageClick"
+            android:layout_gravity="bottom|center"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/vs" />
+
+    </FrameLayout>
+</FrameLayout>

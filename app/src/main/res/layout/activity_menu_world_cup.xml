@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/closeBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft ="5dp"
+            android:layout_marginTop ="2dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/cancelbtn"
+            android:onClick="deleteBtnClicked" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Menu World Cup"
+            android:textSize="20dp" />
+    </FrameLayout>
+
+    <!--#088dad-->
+    <!--#54b0c0-->
+    <FrameLayout
+        android:id="@+id/root"
+        android:layout_marginTop ="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="330dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/shadow_02556">
+        </ImageView>
+
+        <ImageView
+            android:layout_width="360dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shadow_02610"/>
+
+        <include
+            android:id="@+id/includeFrame"
+            layout="@layout/menu_framelayout"
+            android:layout_marginTop="43dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+        <ImageView
+            android:id="@+id/topImageCheck"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="70dp"
+            android:visibility="invisible"
+            android:background="@drawable/check"/>
+
+        <ImageView
+            android:id="@+id/downImageCheck"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="25dp"
+            android:visibility="invisible"
+            android:background="@drawable/check"/>
+
+        <FrameLayout
+            android:visibility="invisible"
+            android:id="@+id/resultFoodPage"
+            android:layout_gravity="center"
+            android:layout_width="400dp"
+            android:layout_height="420dp">
+
+            <include
+                layout="@layout/food_world_cup_result"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
