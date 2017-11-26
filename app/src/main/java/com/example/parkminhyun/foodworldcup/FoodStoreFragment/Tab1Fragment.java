@@ -12,9 +12,6 @@ import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.R;
 
-/**
- * Created by ParkMinHyun on 2017-11-26.
- */
 
 public class Tab1Fragment  extends Fragment {
     private static final String TAG = "Tab1Fragment";
