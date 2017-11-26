@@ -31,9 +31,11 @@ public class DrawingLotActivity extends AppCompatActivity {
     ImageView foodImage1,foodImage2,foodImage3,foodImage4,foodImage5,foodImage6 ;
     EditText inputText;
 
-    List<String> addedFoodName = new ArrayList<>();
-    String foodThumbnail;
-    int foodNum = 0;
+    private List<String> addedFoodName = new ArrayList<>();
+    private String foodThumbnail;
+    private int foodNum = 0;
+
+    private static final int DrawingLotActivity = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,8 @@ public class DrawingLotActivity extends AppCompatActivity {
 
         initProperty();
 
-
     }
+
     private void initProperty(){
         foodImage1 = (ImageView)findViewById(R.id.image1);
         foodImage2 = (ImageView)findViewById(R.id.image2);
@@ -53,9 +55,9 @@ public class DrawingLotActivity extends AppCompatActivity {
         foodImage6 = (ImageView)findViewById(R.id.image6);
 
         inputText = (EditText)findViewById(R.id.editFoodText);
-
     }
 
+    // 추가 버튼 클릭시
     public void plusBtnClicked(View view) {
         switch (foodNum){
             case 0: foodImage1.setVisibility(View.VISIBLE); break;
@@ -73,13 +75,14 @@ public class DrawingLotActivity extends AppCompatActivity {
         foodNum++;
     }
 
+    // 제비뽑기 버튼 클릭 시
     public void startDrawingLot(View view) {
         Random random = new Random();
 
         int randomNum = random.nextInt(foodNum);
         Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
         intent.putExtra("resultFood", addedFoodName.get(randomNum));
-        intent.putExtra("previousActivity", 1);
+        intent.putExtra("previousActivity", DrawingLotActivity);
         startActivity(intent);
     }
 
@@ -132,6 +135,7 @@ public class DrawingLotActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
+            // 이미지 읽어 오기
             Picasso.with(getApplicationContext())
                     .load(foodThumbnail)
                     .into((ImageView)findViewById(getResources().getIdentifier("image"+foodNum, "id", getPackageName())));

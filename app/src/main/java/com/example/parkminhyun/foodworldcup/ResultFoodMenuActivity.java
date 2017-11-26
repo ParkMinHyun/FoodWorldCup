@@ -9,11 +9,13 @@ import android.widget.TextView;
 
 public class ResultFoodMenuActivity extends AppCompatActivity {
 
-    FoodInfomation foodInfomation;
+    private FoodInfomation foodInfomation;
+
     private TextView foodNameTextView;
     private ImageView resultFoodImageView;
     private int resID;
-    String resultFoodName;
+    private String resultFoodName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -125,7 +125,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             cityName = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare();
 
 
-        searchText = (previousActivity==0) ? cityName + ' ' + map.get(resultFoodName) : cityName + ' ' + resultFoodName;
+        searchText = (previousActivity==MenuWorldCupActivity.MenuWorldCupActivity) ? cityName + ' ' + map.get(resultFoodName) : cityName + ' ' + resultFoodName;
 
         // 네이버 검색 API 어싱크로 동작시키기
         ResultFoodMapActivity.JsoupAsyncTask jsoupAsyncTask = new ResultFoodMapActivity.JsoupAsyncTask();

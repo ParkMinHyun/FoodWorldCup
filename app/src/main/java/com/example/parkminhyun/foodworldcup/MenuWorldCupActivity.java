@@ -28,6 +28,7 @@ public class MenuWorldCupActivity extends AppCompatActivity {
 
     private int foodIndex = 0;
     private boolean quarterfinal_flag = false, semifinal_flag = false, final_flag = false;
+    public static final int MenuWorldCupActivity = 0;
 
     FoodInfomation foodInfomation;
     private Animation translateUpAnim;
@@ -139,7 +140,7 @@ public class MenuWorldCupActivity extends AppCompatActivity {
     public void findFoodStoreImageClicked(View v) {
         Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
         intent.putExtra("resultFood", foodTournerment_menuList.get(0));
-        intent.putExtra("previousActivity", 0);
+        intent.putExtra("previousActivity", MenuWorldCupActivity);
         startActivity(intent);
     }
 
