@@ -5,78 +5,181 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.parkminhyun.foodworldcup.MainActivity"
+    android:background="@drawable/main_background"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:background="#d50000"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/menu"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginVertical="25dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/main_left_alignment"/>
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:src="@drawable/title"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"/>
+            android:background="@drawable/title"
+            android:layout_gravity="center"
+            android:layout_marginVertical="30dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="8"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/main_info"
+            android:layout_marginVertical="22dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="1"/>
+
+
     </LinearLayout>
 
-    <ImageButton
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/main_menuworldcup"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_weight="2"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="30dp"
+        android:elevation="5dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/main_foodworldcup"/>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/main_food"
+            android:layout_margin="30dp"/>
 
-    <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/main_recommendtodayfood"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.8"
+            android:orientation="vertical">
 
-    <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/main_introduce"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:textSize="28dp"
+                android:textStyle="bold"
+                android:text="음식 월드컵"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"/>
 
-    <ImageButton
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:text="당신이 음식을 고민할 때\n대신 결정해줍니다"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/main_dutchpay"/>
+        android:layout_weight="2"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="30dp"
+        android:elevation="5dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/main_tray"
+            android:layout_margin="30dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.8"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:text="오늘의 음식 추천"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:text="오늘의 요리를 당신에게\n추천드리겠습니다"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_margin="30dp"
+        android:elevation="5dp"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/main_store"
+            android:layout_margin="30dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.8"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:textSize="28dp"
+                android:textStyle="bold"
+                android:text="주변 맛집"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:text="현재 있는 위치에서\n소문난 맛집을 알려줄게요"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
