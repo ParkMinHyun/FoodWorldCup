@@ -1,22 +1,17 @@
 package com.example.parkminhyun.foodworldcup;
 
-import android.support.design.widget.TabLayout;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
-
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
-
-import com.example.parkminhyun.foodworldcup.FoodStoreFragment.SectionsPageAdapter;
-import com.example.parkminhyun.foodworldcup.FoodStoreFragment.Tab1Fragment;
-import com.example.parkminhyun.foodworldcup.FoodStoreFragment.Tab2Fragment;
+import android.webkit.WebViewClient;
 
 public class ResultFoodInfoActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
-//
-//    private SectionsPageAdapter mSectionsPageAdapter;
-//    private ViewPager mViewPager;
+    private static final String TAG = "ResultFoodInfoActivity";
 
     private String storeURL;
     WebView webView;
@@ -25,26 +20,15 @@ public class ResultFoodInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_food_info);
 
-
+        // 검색 URL 받기
         storeURL = getIntent().getExtras().getString("StoreURL");
-        webView = (WebView)findViewById(R.id.foodStoreWebview);
-        webView.loadUrl(storeURL);
-//
-//        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-//
-//        // Set up the ViewPager with the sections adapter.
-//        mViewPager = (ViewPager) findViewById(R.id.container);
-//        setupViewPager(mViewPager);
-//
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(mViewPager);
-    }
 
-//    private void setupViewPager(ViewPager viewPager) {
-//        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-//        adapter.addFragment(new Tab1Fragment(), "TAB1");
-//        adapter.addFragment(new Tab2Fragment(), "TAB2");
-//        viewPager.setAdapter(adapter);
-//    }
+        // webView 띄우기
+        webView = (WebView)findViewById(R.id.foodStoreWebview);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setSupportZoom(true);
+        webSettings.setJavaScriptEnabled(true);
+        webView.loadUrl(storeURL);
+    }
 
 }

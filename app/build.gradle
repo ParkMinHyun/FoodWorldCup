@@ -37,4 +37,6 @@ dependencies {
     compile files('libs/picasso-2.5.2.jar')
 
     compile 'com.google.guava:guava:23.5-android'
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife:8.7.0'
 }

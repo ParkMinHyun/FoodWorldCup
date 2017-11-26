@@ -10,4 +10,15 @@
         android:layout_height="match_parent">
     </WebView>
 
+    <!--설정버튼-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_settings"
+        style="@style/FabSettings_Style"
+        android:background="@color/blueGreenColor"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="10dp" />
+
 </RelativeLayout>

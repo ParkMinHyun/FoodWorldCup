@@ -32,6 +32,7 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -174,13 +175,13 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         protected String doInBackground(Void... params) {
             try {
                 Document doc = Jsoup.connect(homepageUrl).get();
-                Element link = doc.select(".biz_name").first();
+                Elements link = doc.select(".biz_name");
                 String relHref = link.attr("href");
 
-                StringBuilder a = new StringBuilder(relHref);
-                String baseURL = a.substring(0,a.indexOf("query=") + "query=".length());
+                StringBuilder relHrefStringBuilder = new StringBuilder(relHref);
+                String baseURL = relHrefStringBuilder.substring(0, relHrefStringBuilder.indexOf("query=") + "query=".length());
 
-                return baseURL+storeName;
+                return baseURL + storeName;
 
             } catch (IOException e) {
                 e.printStackTrace();
