@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.example.parkminhyun.foodworldcup;
+package com.example.parkminhyun.foodworldcup.GPS;
 
 /**
  * @author aquilegia

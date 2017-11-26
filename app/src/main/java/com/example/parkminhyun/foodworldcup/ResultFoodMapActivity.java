@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.example.parkminhyun.foodworldcup.GPS.GPSInfo;
+import com.example.parkminhyun.foodworldcup.GPS.GeoPoint;
+import com.example.parkminhyun.foodworldcup.GPS.GeoTrans;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -251,7 +254,6 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
                 .title("현재 위치")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }
-
 
     protected void hideSoftKeyboard(View view) {
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
