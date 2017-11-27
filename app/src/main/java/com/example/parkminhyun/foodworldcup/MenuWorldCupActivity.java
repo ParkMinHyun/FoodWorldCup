@@ -15,6 +15,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.parkminhyun.foodworldcup.ETC.MoveAnimation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,7 +168,7 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         public void run() {
 
             // left Move animation 실행
-            menuLayout.startAnimation(new Animate());
+            menuLayout.startAnimation(new MoveAnimation());
 
             // check 이미지 Invisible
             topImageCheck.setVisibility(view.INVISIBLE);

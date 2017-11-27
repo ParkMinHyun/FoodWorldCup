@@ -1,4 +1,4 @@
-package com.example.parkminhyun.foodworldcup;
+package com.example.parkminhyun.foodworldcup.ETC;
 
 import android.graphics.Camera;
 import android.graphics.Matrix;
@@ -6,7 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 
-public class Animate extends Animation implements Animation.AnimationListener {
+public class MoveAnimation extends Animation implements Animation.AnimationListener {
     public int height, width;
 
     @Override

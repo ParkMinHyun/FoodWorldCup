@@ -1,30 +1,21 @@
 package com.example.parkminhyun.foodworldcup;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.parkminhyun.foodworldcup.ETC.FoodInfomationVO;
 import com.example.parkminhyun.foodworldcup.NaverAPI.AsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAPI_AsnycTask;
 import com.google.common.collect.BiMap;
@@ -32,7 +23,6 @@ import com.google.common.collect.HashBiMap;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -44,7 +34,7 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
     EditText inputText;
     TextView inputedTextView;
 
-    private FoodInfomation foodInfomation;
+    private FoodInfomationVO foodInfomationVO;
     private BiMap<String, String> foodNameMap;
     private BiMap<String, String> resultFoodImageInfoMap;
 
@@ -69,8 +59,8 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
 
         resultfoodDialogImage = (ImageView) findViewById(R.id.resultfoodDialogImage);
 
-        foodInfomation = FoodInfomation.getInstance();
-        foodNameMap = foodInfomation.getReverseMap();
+        foodInfomationVO = FoodInfomationVO.getInstance();
+        foodNameMap = foodInfomationVO.getReverseMap();
         resultFoodImageInfoMap = HashBiMap.create();
 
         inputedTextView = (TextView) findViewById(R.id.inputedTextView);

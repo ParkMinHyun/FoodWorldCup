@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.parkminhyun.foodworldcup.ETC.FoodInfomationVO;
 import com.example.parkminhyun.foodworldcup.GPS.GPSInfo;
 import com.example.parkminhyun.foodworldcup.GPS.GeoPoint;
 import com.example.parkminhyun.foodworldcup.GPS.GeoTrans;
@@ -48,7 +49,7 @@ import java.util.List;
 public class ResultFoodMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GPSInfo gpsInfo;
-    private FoodInfomation foodInfomation;
+    private FoodInfomationVO foodInfomationVO;
 
     private EditText searchEditText;
 
@@ -80,9 +81,9 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     private void propertyInit() {
 
         // Binding
-        foodInfomation = FoodInfomation.getInstance();
+        foodInfomationVO = FoodInfomationVO.getInstance();
         searchEditText = (EditText) findViewById(R.id.search);
-        foodMap = foodInfomation.getMap();
+        foodMap = foodInfomationVO.getMap();
 
         // putExtra 값 받기
         resultFoodName = getIntent().getExtras().getString("resultFood");

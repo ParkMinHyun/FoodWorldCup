@@ -1,26 +1,26 @@
-package com.example.parkminhyun.foodworldcup;
+package com.example.parkminhyun.foodworldcup.ETC;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-public class FoodInfomation {
+public class FoodInfomationVO {
 
-    private static FoodInfomation instance;
+    private static FoodInfomationVO instance;
     public BiMap<String, String> map = HashBiMap.create();
     public BiMap reverseMap;
 
 
-    public static FoodInfomation getInstance(){
+    public static FoodInfomationVO getInstance(){
         if(instance==null)
         {
-            instance = new FoodInfomation();
+            instance = new FoodInfomationVO();
             return instance;
         }
         else
             return instance;
     }
 
-    public FoodInfomation(){
+    public FoodInfomationVO(){
         initMap();
         reverseMap = map.inverse();
     }

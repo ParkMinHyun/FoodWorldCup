@@ -1,4 +1,4 @@
-package com.example.parkminhyun.foodworldcup;
+package com.example.parkminhyun.foodworldcup.ETC;
 
 
 import android.app.Activity;

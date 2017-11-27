@@ -1,11 +1,6 @@
 package com.example.parkminhyun.foodworldcup;
 
-import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Toast;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.example.parkminhyun.foodworldcup.ETC.FavoritesStoreSharedPreferences;
 
 
 public class ResultFoodInfoActivity extends AppCompatActivity {
