@@ -65,7 +65,7 @@ public class MenuWorldCupActivity extends AppCompatActivity {
 
     public void foodImageViewSetting() {
 
-//        // 16강, 8강, 4강 진행
+        // 16강, 8강, 4강 진행
         if (foodIndex == 8 && quarterfinal_flag == false) {
             foodIndex = 0;
             quarterfinal_flag = true;

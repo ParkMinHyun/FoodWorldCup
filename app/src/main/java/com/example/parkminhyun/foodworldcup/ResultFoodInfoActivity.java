@@ -1,6 +1,7 @@
 package com.example.parkminhyun.foodworldcup;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -13,6 +14,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class ResultFoodInfoActivity extends AppCompatActivity {
 
@@ -20,6 +24,7 @@ public class ResultFoodInfoActivity extends AppCompatActivity {
 
     private static final String TAG = "ResultFoodInfoActivity";
 
+    private Boolean favoritesFlag;
     private String storeURL;
     WebView webView;
     @Override
@@ -46,8 +51,10 @@ public class ResultFoodInfoActivity extends AppCompatActivity {
         webView.loadUrl(storeURL);
     }
 
+
     public void reviewButtonClick(View view) {
 
+        favoritesFlag = true;
         startBtn.setColorFilter(Color.YELLOW);
         Toast.makeText(getApplicationContext(),"clicekced",Toast.LENGTH_SHORT).show();
 
