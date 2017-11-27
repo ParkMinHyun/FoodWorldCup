@@ -2,6 +2,8 @@ package com.example.parkminhyun.foodworldcup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -83,14 +85,14 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         foodMap = foodInfomation.getMap();
         searchEditText = (EditText) findViewById(R.id.search);
 
-        resultFoodName = getIntent().getExtras().getString("resultFood");
-        previousActivity = getIntent().getExtras().getInt("previousActivity");
-
-        // EditText 내용 초기화
-        if (foodMap.get(resultFoodName) != null)
-            searchEditText.setText(foodMap.get(resultFoodName));
-        else
-            searchEditText.setText(resultFoodName);
+//        resultFoodName = getIntent().getExtras().getString("resultFood");
+//        previousActivity = getIntent().getExtras().getInt("previousActivity");
+//
+//        // EditText 내용 초기화
+//        if (foodMap.get(resultFoodName) != null)
+//            searchEditText.setText(foodMap.get(resultFoodName));
+//        else
+//            searchEditText.setText(resultFoodName);
 
         markers = new ArrayList<Marker>();
         foodStoreName = new ArrayList<>();
@@ -117,6 +119,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         addCurrentPosionMarker(currentPos);
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
 
+
         latitude = gpsInfo.getLatitude();
         longitude = gpsInfo.getLongitude();
 
@@ -128,7 +131,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             e.printStackTrace();
         }
 
-        Log.i("맵 액티비티", addr.get(0).toString());
+//        Log.i("맵 액티비티", addr.get(0).toString());
 
 
         if (addr.get(0).getSubLocality() == null || addr.get(0).getThoroughfare() == null)
@@ -137,22 +140,22 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             currentDong = addr.get(0);
 
         // 검색 문구 생성
-//        searchText = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare() + ' ' + "짜장면";
+        searchText = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare() + ' ' + "짜장면";
         Log.i("음식점", currentDong.getSubLocality());
 //        cityName = currentDong.getThoroughfare();
 
 //        searchText = currentDong.getSubLocality() + ' ' + "백반";
-
-        if (currentDong.getSubLocality() == null)
-            cityName = currentDong.getThoroughfare();
-        else
-            cityName = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare();
-
-
-        searchText =
-                (previousActivity == MenuWorldCupActivity.MenuWorldCupActivity)
-                        ? cityName + ' ' + foodMap.get(resultFoodName)
-                        : cityName + ' ' + resultFoodName;
+//
+//        if (currentDong.getSubLocality() == null)
+//            cityName = currentDong.getThoroughfare();
+//        else
+//            cityName = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare();
+//
+//
+//        searchText =
+//                (previousActivity == MenuWorldCupActivity.MenuWorldCupActivity)
+//                        ? cityName + ' ' + foodMap.get(resultFoodName)
+//                        : cityName + ' ' + resultFoodName;
 
         // 네이버 검색 API 어싱크로 동작시키기
         ResultFoodMapActivity.NaverSearchAPIAsyncTask naverSearchAPIAsyncTask = new ResultFoodMapActivity.NaverSearchAPIAsyncTask();
@@ -269,8 +272,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
                 markers.add(gMap.addMarker(new MarkerOptions().position(new LatLng(convertedGeoPoint.y, convertedGeoPoint.x))
                         .title(foodStoreName.get(i))
                         .snippet(foodStoreAddr.get(i))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))));
-//                        .icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap("store_pin",100,120)))));
+                        .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("foodstore_pin",120,130)))));
             }
         }
     }
@@ -291,7 +293,6 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
                 foodStoreMapX.add(jObject.getString("mapx"));
                 foodStoreMapY.add(jObject.getString("mapy"));
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -324,8 +325,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 
     private void addCurrentPosionMarker(LatLng currentPos) {
         gMap.addMarker(new MarkerOptions().position(currentPos)
-                .title("현재 위치")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("currentposition_pin",120,130))));
     }
 
     protected void hideSoftKeyboard(View view) {
@@ -335,5 +335,12 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 
     public void deleteBtnClicked(View v) {
         searchEditText.setText("");
+    }
+
+
+    public Bitmap resizeMapIcons(String iconName, int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        return resizedBitmap;
     }
 }
