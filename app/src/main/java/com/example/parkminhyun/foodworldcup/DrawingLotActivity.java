@@ -27,26 +27,28 @@ import android.widget.Toast;
 import com.example.parkminhyun.foodworldcup.NaverAPI.AsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAPI_AsnycTask;
 import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 
 public class DrawingLotActivity extends AppCompatActivity implements AsyncResponse, NaverAPI_AsnycTask.AsyncResponse {
 
-    ImageView foodImage1,foodImage2,foodImage3,foodImage4,foodImage5,foodImage6 ;
-    ImageView resultfoodDialog;
+    ImageView foodImage1, foodImage2, foodImage3, foodImage4, foodImage5, foodImage6;
+    ImageView resultfoodDialogImage;
     EditText inputText;
     TextView inputedTextView;
 
     private FoodInfomation foodInfomation;
-    private BiMap<String,String> foodNameMap;
+    private BiMap<String, String> foodNameMap;
+    private BiMap<String, String> resultFoodImageInfoMap;
 
-    private List<String> addedFoodName = new ArrayList<>();
-    private int foodNum = 0;
-
+    private List<String> addedFoodNameList = new ArrayList<>();
+    private int addedfoodCount = 0, randomNum = 0;
     private static final int DrawingLotActivity = 1;
 
     @Override
@@ -57,114 +59,157 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         initProperty();
     }
 
-    private void initProperty(){
-        foodImage1 = (ImageView)findViewById(R.id.image1);
-        foodImage2 = (ImageView)findViewById(R.id.image2);
-        foodImage3 = (ImageView)findViewById(R.id.image3);
-        foodImage4 = (ImageView)findViewById(R.id.image4);
-        foodImage5 = (ImageView)findViewById(R.id.image5);
-        foodImage6 = (ImageView)findViewById(R.id.image6);
+    private void initProperty() {
+        foodImage1 = (ImageView) findViewById(R.id.image1);
+        foodImage2 = (ImageView) findViewById(R.id.image2);
+        foodImage3 = (ImageView) findViewById(R.id.image3);
+        foodImage4 = (ImageView) findViewById(R.id.image4);
+        foodImage5 = (ImageView) findViewById(R.id.image5);
+        foodImage6 = (ImageView) findViewById(R.id.image6);
 
-        resultfoodDialog = (ImageView)findViewById(R.id.resultfoodDialog);
+        resultfoodDialogImage = (ImageView) findViewById(R.id.resultfoodDialogImage);
 
         foodInfomation = FoodInfomation.getInstance();
         foodNameMap = foodInfomation.getReverseMap();
+        resultFoodImageInfoMap = HashBiMap.create();
 
-        inputedTextView = (TextView)findViewById(R.id.inputedTextView);
-        inputText = (EditText)findViewById(R.id.editFoodText);
+        inputedTextView = (TextView) findViewById(R.id.inputedTextView);
+        inputText = (EditText) findViewById(R.id.editFoodText);
 
-        RelativeLayout rootView = (RelativeLayout)findViewById(R.id.rootView);
+        RelativeLayout rootView = (RelativeLayout) findViewById(R.id.rootView);
     }
 
     // 추가 버튼 클릭시
     public void plusBtnClicked(View view) {
         String inputFoodName = inputText.getText().toString();
 
-        if(inputFoodName.length() == 0) {
+
+        if (inputFoodName.length() == 0) {
             Toast.makeText(getApplicationContext(), "음식을 입력해주세요", Toast.LENGTH_SHORT).show();
             return;
         }
 
         ImageView currentFoodImageView;
-        switch (foodNum){
-            case 0: currentFoodImageView = foodImage1; foodImage1.setVisibility(View.VISIBLE); break;
-            case 1: currentFoodImageView = foodImage2; foodImage2.setVisibility(View.VISIBLE); break;
-            case 2: currentFoodImageView = foodImage3; foodImage3.setVisibility(View.VISIBLE); break;
-            case 3: currentFoodImageView = foodImage4; foodImage4.setVisibility(View.VISIBLE); break;
-            case 4: currentFoodImageView = foodImage5; foodImage5.setVisibility(View.VISIBLE); break;
-            case 5: currentFoodImageView = foodImage6; foodImage6.setVisibility(View.VISIBLE); break;
+        switch (addedfoodCount) {
+            case 0:
+                currentFoodImageView = foodImage1;
+                foodImage1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                currentFoodImageView = foodImage2;
+                foodImage2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                currentFoodImageView = foodImage3;
+                foodImage3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                currentFoodImageView = foodImage4;
+                foodImage4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                currentFoodImageView = foodImage5;
+                foodImage5.setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                currentFoodImageView = foodImage6;
+                foodImage6.setVisibility(View.VISIBLE);
+                break;
             default:
-                Toast.makeText(getApplicationContext(),"더 이상 추가할 수 없습니다",Toast.LENGTH_SHORT).show(); return;
+                Toast.makeText(getApplicationContext(), "더 이상 추가할 수 없습니다", Toast.LENGTH_SHORT).show();
+                return;
         }
 
-        if(foodNameMap.get(inputFoodName) != null){
+        if (foodNameMap.get(inputFoodName) != null) {
             int resID = getResources().getIdentifier(foodNameMap.get(inputFoodName), "drawable", getPackageName());
             currentFoodImageView.setImageResource(resID);
 
             // 음식 이름 추가
             addFoodName();
-            foodNum ++;
+            addedfoodCount++;
             return;
         }
 
         // 네이버 검색 API 어싱크로 동작시키기
-        new NaverAPI_AsnycTask(this,inputText.getText().toString()).execute();
-        foodNum++;
+        new NaverAPI_AsnycTask(this, inputText.getText().toString()).execute();
+        addedfoodCount++;
     }
 
     // 음식 이름추가 및 Text 초기화
     private void addFoodName() {
-        addedFoodName.add(inputText.getText().toString());
-        inputedTextView.setText(inputedTextView.getText()+ " "+ inputText.getText().toString());
+        addedFoodNameList.add(inputText.getText().toString());
+        inputedTextView.setText(inputedTextView.getText() + " " + inputText.getText().toString());
         inputText.setText("");
     }
 
     // 제비뽑기 버튼 클릭 시
     public void startDrawingLot(View view) {
 
-        if(foodNum == 0) {
+        // 키보드 숨기기
+        hideSoftKeyboard(view);
+
+        if (addedfoodCount == 0) {
             Toast.makeText(getApplicationContext(), "음식을 추가해주세요", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Random random = new Random();
-        int randomNum = random.nextInt(foodNum);
-        showResultFood(randomNum);
+        showResultFood();
     }
 
-    private void showResultFood(final int randomNum){
+    // Dialog 띄우기
+    private void showResultFood() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setPositiveButton("Get Pro", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
-//                intent.putExtra("resultFood", addedFoodName.get(randomNum));
-//                intent.putExtra("previousActivity", DrawingLotActivity);
-//                startActivity(intent);
-//            }
-//        }).setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//            }
-//        });
         final AlertDialog dialog = builder.create();
         LayoutInflater inflater = getLayoutInflater();
         View dialogLayout = inflater.inflate(R.layout.resultfood_dialog, null);
+        ImageView resultfoodImageView = dialogLayout.findViewById(R.id.resultfoodDialogImage);
+
+        // 랜덤으로 선택된 음식 Dialog ImageView에 뿌려주기
+        Random random = new Random();
+        randomNum = random.nextInt(addedfoodCount);
+
+        // food Data Set에 있는 음식일 경우
+        if (foodNameMap.get(addedFoodNameList.get(randomNum)) != null) {
+            int resID = getResources().getIdentifier(foodNameMap.get(addedFoodNameList.get(randomNum)), "drawable", getPackageName());
+            resultfoodImageView.setImageResource(resID);
+        }
+        // 아닐 경우
+        else {
+            // 이미지 읽어 오기
+            Picasso.with(getApplicationContext())
+                    .load(resultFoodImageInfoMap.get(addedFoodNameList.get(randomNum)))
+                    .into(resultfoodImageView);
+        }
+
+        // Dialog 띄우기
         dialog.setView(dialogLayout);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.show();
-
     }
 
+    // AsyncTask onPost 작업 처리
     @Override
     public void processFinish(String foodThumbnail) {
         // 이미지 읽어 오기
         Picasso.with(getApplicationContext())
                 .load(foodThumbnail)
-                .into((ImageView)findViewById(getResources().getIdentifier("image"+foodNum, "id", getPackageName())));
+                .into((ImageView) findViewById(getResources().getIdentifier("image" + addedfoodCount, "id", getPackageName())));
 
         // 음식 이름 추가
+        resultFoodImageInfoMap.put(inputText.getText().toString(),foodThumbnail);
         addFoodName();
+    }
+
+    public void findFoodStoreImageClicked(View view) {
+        Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
+        intent.putExtra("resultFood", addedFoodNameList.get(randomNum));
+        intent.putExtra("previousActivity", DrawingLotActivity);
+        startActivity(intent);
+    }
+
+    protected void hideSoftKeyboard(View view) {
+        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
