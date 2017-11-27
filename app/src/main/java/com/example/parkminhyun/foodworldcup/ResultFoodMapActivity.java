@@ -2,15 +2,20 @@ package com.example.parkminhyun.foodworldcup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.GPS.GPSInfo;
@@ -78,8 +83,9 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         foodMap = foodInfomation.getMap();
         searchEditText = (EditText) findViewById(R.id.search);
 
-//        resultFoodName = getIntent().getExtras().getString("resultFood");
-//        previousActivity = getIntent().getExtras().getInt("previousActivity");
+        resultFoodName = getIntent().getExtras().getString("resultFood");
+        previousActivity = getIntent().getExtras().getInt("previousActivity");
+        searchEditText.setText(resultFoodName);
 
         markers = new ArrayList<Marker>();
         foodStoreName = new ArrayList<>();
@@ -117,6 +123,8 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             e.printStackTrace();
         }
 
+        Log.i("맵 액티비티", addr.get(0).toString());
+
 
         if (addr.get(0).getSubLocality() == null || addr.get(0).getThoroughfare() == null)
             currentDong = addr.get(1);
@@ -124,21 +132,22 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             currentDong = addr.get(0);
 
         // 검색 문구 생성
-        searchText = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare() + ' ' + "짜장면";
+//        searchText = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare() + ' ' + "짜장면";
         Log.i("음식점", currentDong.getSubLocality());
 //        cityName = currentDong.getThoroughfare();
 
 //        searchText = currentDong.getSubLocality() + ' ' + "백반";
-//        if(currentDong.getSubLocality() == null)
-//            cityName = currentDong.getThoroughfare();
-//        else
-//            cityName = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare();
 
-//
-//        searchText =
-//                (previousActivity == MenuWorldCupActivity.MenuWorldCupActivity)
-//                ? cityName + ' ' + foodMap.get(resultFoodName)
-//                : cityName + ' ' + resultFoodName;
+        if(currentDong.getSubLocality() == null)
+            cityName = currentDong.getThoroughfare();
+        else
+            cityName = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare();
+
+
+        searchText =
+                (previousActivity == MenuWorldCupActivity.MenuWorldCupActivity)
+                ? cityName + ' ' + foodMap.get(resultFoodName)
+                : cityName + ' ' + resultFoodName;
 
         // 네이버 검색 API 어싱크로 동작시키기
         ResultFoodMapActivity.NaverSearchAPIAsyncTask naverSearchAPIAsyncTask = new ResultFoodMapActivity.NaverSearchAPIAsyncTask();
@@ -147,9 +156,9 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 //        a.getAdminArea()+" "+a.getLocality()+" "+a.getThoroughfare();
     }
 
+
     @Override
     public void onInfoWindowClick(Marker marker) {
-
         try {
             storeName = URLEncoder.encode(marker.getTitle().toString(), "UTF-8");
 

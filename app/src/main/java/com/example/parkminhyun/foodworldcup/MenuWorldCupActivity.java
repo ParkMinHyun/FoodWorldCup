@@ -1,15 +1,20 @@
 package com.example.parkminhyun.foodworldcup;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,12 +79,15 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         if (foodIndex == 8 && quarterfinal_flag == false) {
             foodIndex = 0;
             quarterfinal_flag = true;
+            showToast("8강!");
         } else if (foodIndex == 4 && quarterfinal_flag == true) {
             foodIndex = 0;
             semifinal_flag = true;
+            showToast("4강!");
         } else if (foodIndex == 2 && semifinal_flag == true) {
             foodIndex = 0;
             final_flag = true;
+            showToast("결승전!");
         }
 
         // 문자열로 drawable에 있는 음식 이미지 가져오기
@@ -95,7 +103,6 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         topImage.setAlpha(1f);
         downImage.setAlpha(1f);
     }
-
 
     // Food 토너먼트 중 음식 이미지를 클릭했을 경우
     private void FoodImageClick_Result(String mode) {
@@ -126,6 +133,8 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         // 1초 뒤 Handler 실행
         Handler myHandler = new Handler();
         myHandler.postDelayed(mMyRunnable1, 1000);
+
+
     }
 
     // 아래 이미지 클릭시
@@ -233,5 +242,22 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         // 애니메이션이 끝날때 호출되는 메소드
         public void onAnimationEnd(Animation animation) {
         }
+    }
+
+    private void showToast(String showText){
+
+        LayoutInflater inflater = getLayoutInflater();// 레이아웃인플레이터객체참조
+        View layout = inflater.inflate(// 토스트를위한레이아웃인플레이터
+                R.layout.toastborder,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+        TextView text = (TextView) layout.findViewById(R.id.text);
+        Toast toast = new Toast(this);// 토스트객체생성
+        text.setText(showText);
+        text.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        text.setTextColor(Color.WHITE);
+        toast.setGravity(Gravity.CENTER, 0, -100);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);// 토스트가보이는뷰설정
+        toast.show();
     }
 }
