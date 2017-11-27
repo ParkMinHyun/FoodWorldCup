@@ -15,7 +15,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_reviewBtn"
         style="@style/FabSettings_Style"
-        android:onClick="reviewButtonClick"
+        android:onClick="favoritesStoreBtnClick"
         app:backgroundTint="@color/lightGreenColor"
         android:tint="#ffffff"
         android:layout_alignParentBottom="true"
