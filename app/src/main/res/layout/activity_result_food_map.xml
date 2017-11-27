@@ -55,7 +55,7 @@
             android:background="@drawable/magnifier"
             android:padding="20dp"
             android:scaleType="centerInside"
-            android:onClick="findAnotherFoodStoreImageClicked"/>
+            android:onClick="findFoodStoreBtnClicked"/>
 
     </LinearLayout>
 

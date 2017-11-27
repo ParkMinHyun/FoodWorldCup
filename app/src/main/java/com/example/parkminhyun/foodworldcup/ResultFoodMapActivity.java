@@ -4,20 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.GPS.GPSInfo;
@@ -38,7 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
@@ -80,11 +74,17 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_food_map);
 
+        propertyInit();
+    }
 
+    private void propertyInit() {
+
+        // Binding
         foodInfomation = FoodInfomation.getInstance();
-        foodMap = foodInfomation.getMap();
         searchEditText = (EditText) findViewById(R.id.search);
+        foodMap = foodInfomation.getMap();
 
+        // putExtra 값 받기
         resultFoodName = getIntent().getExtras().getString("resultFood");
         previousActivity = getIntent().getExtras().getInt("previousActivity");
 
@@ -94,6 +94,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         else
             searchEditText.setText(resultFoodName);
 
+        // list 초기화
         markers = new ArrayList<Marker>();
         foodStoreName = new ArrayList<>();
         foodStoreAddr = new ArrayList<>();
@@ -101,7 +102,6 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         foodStoreMapY = new ArrayList<String>();
 
         gpsInfo = new GPSInfo(this);
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -193,6 +193,10 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             try {
                 Document doc = Jsoup.connect(homepageUrl).get();
                 Elements link = doc.select(".biz_name");
+                if(link == null){
+                    link = doc.select(".item_info");
+                }
+
                 String relHref = link.attr("href");
 
                 StringBuilder relHrefStringBuilder = new StringBuilder(relHref);
@@ -299,7 +303,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         }
     }
 
-    public void findAnotherFoodStoreImageClicked(View v) {
+    public void findFoodStoreBtnClicked(View v) {
 
         // 키보드 내리기
         hideSoftKeyboard(v);
@@ -316,6 +320,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         foodStoreMapY.clear();
 
         addCurrentPosionMarker(currentPos);
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
 
         // 네이버 검색 API 어싱크로 동작시키기
         ResultFoodMapActivity.NaverSearchAPIAsyncTask naverSearchAPIAsyncTask = new ResultFoodMapActivity.NaverSearchAPIAsyncTask();
