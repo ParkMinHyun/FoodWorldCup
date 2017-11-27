@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,9 +13,11 @@
 
     <!--설정버튼-->
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_review"
+        android:id="@+id/fab_reviewBtn"
         style="@style/FabSettings_Style"
-        android:background="@color/blueGreenColor"
+        android:onClick="reviewButtonClick"
+        app:backgroundTint="@color/lightGreenColor"
+        android:tint="#ffffff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"

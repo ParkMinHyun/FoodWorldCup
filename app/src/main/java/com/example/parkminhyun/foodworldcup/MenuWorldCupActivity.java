@@ -15,13 +15,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.common.collect.BiMap;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 public class MenuWorldCupActivity extends AppCompatActivity {
 
