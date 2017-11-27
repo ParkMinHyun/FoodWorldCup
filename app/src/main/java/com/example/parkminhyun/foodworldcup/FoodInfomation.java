@@ -33,7 +33,7 @@ public class FoodInfomation {
         map.put("chicken","치킨");
         map.put("dduckppoki","떡볶이");
         map.put("donggas","돈가스");
-        map.put("douhgnut","도넛");
+        map.put("doughnut","도넛");
         map.put("gimbab","김밥");
         map.put("hamburger","햄버거");
         map.put("ramen","라멘");

@@ -1,6 +1,9 @@
 package com.example.parkminhyun.foodworldcup;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -28,26 +31,31 @@ import com.google.common.collect.BiMap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class ResultFoodMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class ResultFoodMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GPSInfo gpsInfo;
     private FoodInfomation foodInfomation;
 
-    public BiMap<String, String> foodMap;
-
-    private GoogleMap gMap;
     private EditText searchEditText;
+
+    private BiMap<String, String> foodMap;
+    private GoogleMap gMap;
+    private GeoPoint convertedGeoPoint;
+
 
     private int previousActivity;
     private double latitude, longitude;
@@ -55,11 +63,10 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     private Address currentDong;
 
     private String searchText;
-    private String cityName,resultFoodName;
+    private String cityName, resultFoodName;
+    private String homepageUrl, storeName;
 
-    private GeoPoint convertedGeoPoint;
-
-    private List<String> foodStoreName,foodStoreAddr,foodStoreMapX,foodStoreMapY;
+    private List<String> foodStoreName, foodStoreAddr, foodStoreMapX, foodStoreMapY;
     private List<Marker> markers;
 
     @Override
@@ -67,13 +74,27 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_food_map);
 
-        foodInfomation = FoodInfomation.getInstance();
-        foodMap = foodInfomation.getMap();
-        searchEditText = (EditText) findViewById(R.id.search);
+        propertyInit();
+    }
 
+    private void propertyInit() {
+
+        // Binding
+        foodInfomation = FoodInfomation.getInstance();
+        searchEditText = (EditText) findViewById(R.id.search);
+        foodMap = foodInfomation.getMap();
+
+        // putExtra 값 받기
         resultFoodName = getIntent().getExtras().getString("resultFood");
         previousActivity = getIntent().getExtras().getInt("previousActivity");
 
+        // EditText 내용 초기화
+        if (foodMap.get(resultFoodName) != null)
+            searchEditText.setText(foodMap.get(resultFoodName));
+        else
+            searchEditText.setText(resultFoodName);
+
+        // list 초기화
         markers = new ArrayList<Marker>();
         foodStoreName = new ArrayList<>();
         foodStoreAddr = new ArrayList<>();
@@ -81,7 +102,6 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         foodStoreMapY = new ArrayList<String>();
 
         gpsInfo = new GPSInfo(this);
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -91,13 +111,14 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
-        gMap.setOnMarkerClickListener(this);
+        gMap.setOnInfoWindowClickListener(this);
 
         // 현재 위치 이동
         currentPos = new LatLng(gpsInfo.getLatitude(), gpsInfo.getLongitude());
 
         addCurrentPosionMarker(currentPos);
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
+
 
         latitude = gpsInfo.getLatitude();
         longitude = gpsInfo.getLongitude();
@@ -110,6 +131,8 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             e.printStackTrace();
         }
 
+//        Log.i("맵 액티비티", addr.get(0).toString());
+
 
         if (addr.get(0).getSubLocality() == null || addr.get(0).getThoroughfare() == null)
             currentDong = addr.get(1);
@@ -117,11 +140,13 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             currentDong = addr.get(0);
 
         // 검색 문구 생성
-//        searchText = currentDong.getThoroughfare() + ' ' + "백반";
-//        cityName = currentDong.getThoroughfare();
+//        searchText = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare() + ' ' + "짜장면";
 
-//        searchText = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare() + ' ' + "백반";
-        if(currentDong.getSubLocality() == null)
+        cityName = currentDong.getThoroughfare();
+
+        searchText = currentDong.getSubLocality() + ' ' + "백반";
+
+        if (currentDong.getSubLocality() == null)
             cityName = currentDong.getThoroughfare();
         else
             cityName = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare();
@@ -129,8 +154,8 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 
         searchText =
                 (previousActivity == MenuWorldCupActivity.MenuWorldCupActivity)
-                ? cityName + ' ' + foodMap.get(resultFoodName)
-                : cityName + ' ' + resultFoodName;
+                        ? cityName + ' ' + foodMap.get(resultFoodName)
+                        : cityName + ' ' + resultFoodName;
 
         // 네이버 검색 API 어싱크로 동작시키기
         ResultFoodMapActivity.NaverSearchAPIAsyncTask naverSearchAPIAsyncTask = new ResultFoodMapActivity.NaverSearchAPIAsyncTask();
@@ -139,10 +164,58 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 //        a.getAdminArea()+" "+a.getLocality()+" "+a.getThoroughfare();
     }
 
+
     @Override
-    public boolean onMarkerClick(Marker marker) {
-        Toast.makeText(getApplicationContext(),marker.getTitle().toString(),Toast.LENGTH_SHORT).show();
-        return false;
+    public void onInfoWindowClick(Marker marker) {
+        try {
+            storeName = URLEncoder.encode(marker.getTitle().toString(), "UTF-8");
+
+            homepageUrl = "https://m.search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=" + storeName;
+            JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
+            jsoupAsyncTask.execute();
+            Toast.makeText(getApplicationContext(), marker.getTitle().toString(), Toast.LENGTH_SHORT).show();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private class JsoupAsyncTask extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Document doc = Jsoup.connect(homepageUrl).get();
+                Elements link = doc.select(".biz_name");
+                if(link == null){
+                    link = doc.select(".item_info");
+                }
+
+                String relHref = link.attr("href");
+
+                StringBuilder relHrefStringBuilder = new StringBuilder(relHref);
+                String baseURL = relHrefStringBuilder.substring(0, relHrefStringBuilder.indexOf("query=") + "query=".length());
+
+                return baseURL + storeName;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Intent intent = new Intent(getApplicationContext(), ResultFoodInfoActivity.class);
+            intent.putExtra("StoreURL", result);
+            startActivity(intent);
+        }
     }
 
     private class NaverSearchAPIAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -203,8 +276,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
                 markers.add(gMap.addMarker(new MarkerOptions().position(new LatLng(convertedGeoPoint.y, convertedGeoPoint.x))
                         .title(foodStoreName.get(i))
                         .snippet(foodStoreAddr.get(i))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))));
-//                        .icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap("store_pin",100,120)))));
+                        .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("foodstore_pin",120,130)))));
             }
         }
     }
@@ -219,27 +291,26 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             for (int i = 0; i < jarray.length(); i++) {
                 JSONObject jObject = jarray.getJSONObject(i);  // JSONObject 추출
 
-                String reviseFoodstoreName = jObject.getString("title").replace("<b>"," ");
-                foodStoreName.add(reviseFoodstoreName.replace("</b>",""));
+                String reviseFoodstoreName = jObject.getString("title").replace("<b>", " ");
+                foodStoreName.add(reviseFoodstoreName.replace("</b>", ""));
                 foodStoreAddr.add(jObject.getString("address"));
                 foodStoreMapX.add(jObject.getString("mapx"));
                 foodStoreMapY.add(jObject.getString("mapy"));
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void findAnotherFoodStoreImageClicked(View v) {
+    public void findFoodStoreBtnClicked(View v) {
 
         // 키보드 내리기
         hideSoftKeyboard(v);
 
         // 검색하기
         if (searchEditText.getText().length() != 0)
-            searchText = cityName + ' ' +  searchEditText.getText();
+            searchText = cityName + ' ' + searchEditText.getText();
 
         gMap.clear();
         markers.clear();
@@ -249,17 +320,16 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         foodStoreMapY.clear();
 
         addCurrentPosionMarker(currentPos);
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
 
         // 네이버 검색 API 어싱크로 동작시키기
         ResultFoodMapActivity.NaverSearchAPIAsyncTask naverSearchAPIAsyncTask = new ResultFoodMapActivity.NaverSearchAPIAsyncTask();
         naverSearchAPIAsyncTask.execute();
-
     }
 
-    private void addCurrentPosionMarker(LatLng currentPos){
+    private void addCurrentPosionMarker(LatLng currentPos) {
         gMap.addMarker(new MarkerOptions().position(currentPos)
-                .title("현재 위치")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("currentposition_pin",120,130))));
     }
 
     protected void hideSoftKeyboard(View view) {
@@ -267,7 +337,14 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         mgr.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public void deleteBtnClicked(View v){
+    public void deleteBtnClicked(View v) {
         searchEditText.setText("");
+    }
+
+
+    public Bitmap resizeMapIcons(String iconName, int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        return resizedBitmap;
     }
 }
