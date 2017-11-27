@@ -58,17 +58,16 @@
         android:layout_marginLeft="10dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="5dp"
-            android:text="추가한 음식: " />
+            android:background="@drawable/check"/>
 
         <TextView
             android:id="@+id/inputedTextView"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -76,7 +75,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/ll"
-        android:layout_marginTop="5dp"
         android:background="#bec0c4"
         tools:ignore="Orientation" />
 

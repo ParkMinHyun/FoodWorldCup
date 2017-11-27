@@ -85,14 +85,14 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         foodMap = foodInfomation.getMap();
         searchEditText = (EditText) findViewById(R.id.search);
 
-//        resultFoodName = getIntent().getExtras().getString("resultFood");
-//        previousActivity = getIntent().getExtras().getInt("previousActivity");
-//
-//        // EditText 내용 초기화
-//        if (foodMap.get(resultFoodName) != null)
-//            searchEditText.setText(foodMap.get(resultFoodName));
-//        else
-//            searchEditText.setText(resultFoodName);
+        resultFoodName = getIntent().getExtras().getString("resultFood");
+        previousActivity = getIntent().getExtras().getInt("previousActivity");
+
+        // EditText 내용 초기화
+        if (foodMap.get(resultFoodName) != null)
+            searchEditText.setText(foodMap.get(resultFoodName));
+        else
+            searchEditText.setText(resultFoodName);
 
         markers = new ArrayList<Marker>();
         foodStoreName = new ArrayList<>();
@@ -140,22 +140,22 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             currentDong = addr.get(0);
 
         // 검색 문구 생성
-        searchText = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare() + ' ' + "짜장면";
-        Log.i("음식점", currentDong.getSubLocality());
-//        cityName = currentDong.getThoroughfare();
+//        searchText = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare() + ' ' + "짜장면";
 
-//        searchText = currentDong.getSubLocality() + ' ' + "백반";
-//
-//        if (currentDong.getSubLocality() == null)
-//            cityName = currentDong.getThoroughfare();
-//        else
-//            cityName = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare();
-//
-//
-//        searchText =
-//                (previousActivity == MenuWorldCupActivity.MenuWorldCupActivity)
-//                        ? cityName + ' ' + foodMap.get(resultFoodName)
-//                        : cityName + ' ' + resultFoodName;
+        cityName = currentDong.getThoroughfare();
+
+        searchText = currentDong.getSubLocality() + ' ' + "백반";
+
+        if (currentDong.getSubLocality() == null)
+            cityName = currentDong.getThoroughfare();
+        else
+            cityName = currentDong.getSubLocality() + ' ' + currentDong.getThoroughfare();
+
+
+        searchText =
+                (previousActivity == MenuWorldCupActivity.MenuWorldCupActivity)
+                        ? cityName + ' ' + foodMap.get(resultFoodName)
+                        : cityName + ' ' + resultFoodName;
 
         // 네이버 검색 API 어싱크로 동작시키기
         ResultFoodMapActivity.NaverSearchAPIAsyncTask naverSearchAPIAsyncTask = new ResultFoodMapActivity.NaverSearchAPIAsyncTask();
@@ -320,7 +320,6 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         // 네이버 검색 API 어싱크로 동작시키기
         ResultFoodMapActivity.NaverSearchAPIAsyncTask naverSearchAPIAsyncTask = new ResultFoodMapActivity.NaverSearchAPIAsyncTask();
         naverSearchAPIAsyncTask.execute();
-
     }
 
     private void addCurrentPosionMarker(LatLng currentPos) {

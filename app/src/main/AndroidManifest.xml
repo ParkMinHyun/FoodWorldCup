@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResultFoodMapActivity">
+        <activity android:name=".DrawingLotActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,8 +41,8 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".ResultFoodInfoActivity" />
-        <activity android:name=".MenuWorldCupActivity" />
-        <activity android:name=".DrawingLotActivity"></activity>
+        <activity android:name=".ResultFoodMapActivity" />
+        <activity android:name=".MenuWorldCupActivity"></activity>
     </application>
 
 </manifest>

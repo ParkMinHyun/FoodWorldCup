@@ -72,7 +72,6 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
             return;
         }
 
-
         ImageView currentFoodImageView;
         switch (foodNum){
             case 0: currentFoodImageView = foodImage1; foodImage1.setVisibility(View.VISIBLE); break;
