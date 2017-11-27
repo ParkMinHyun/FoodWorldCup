@@ -2,14 +2,24 @@ package com.example.parkminhyun.foodworldcup;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +37,7 @@ import java.util.Random;
 public class DrawingLotActivity extends AppCompatActivity implements AsyncResponse, NaverAPI_AsnycTask.AsyncResponse {
 
     ImageView foodImage1,foodImage2,foodImage3,foodImage4,foodImage5,foodImage6 ;
+    ImageView resultfoodDialog;
     EditText inputText;
     TextView inputedTextView;
 
@@ -53,6 +64,8 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         foodImage4 = (ImageView)findViewById(R.id.image4);
         foodImage5 = (ImageView)findViewById(R.id.image5);
         foodImage6 = (ImageView)findViewById(R.id.image6);
+
+        resultfoodDialog = (ImageView)findViewById(R.id.resultfoodDialog);
 
         foodInfomation = FoodInfomation.getInstance();
         foodNameMap = foodInfomation.getReverseMap();
@@ -115,12 +128,33 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         }
 
         Random random = new Random();
-
         int randomNum = random.nextInt(foodNum);
-        Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
-        intent.putExtra("resultFood", addedFoodName.get(randomNum));
-        intent.putExtra("previousActivity", DrawingLotActivity);
-        startActivity(intent);
+        showResultFood(randomNum);
+    }
+
+    private void showResultFood(final int randomNum){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setPositiveButton("Get Pro", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
+//                intent.putExtra("resultFood", addedFoodName.get(randomNum));
+//                intent.putExtra("previousActivity", DrawingLotActivity);
+//                startActivity(intent);
+//            }
+//        }).setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//            }
+//        });
+        final AlertDialog dialog = builder.create();
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogLayout = inflater.inflate(R.layout.resultfood_dialog, null);
+        dialog.setView(dialogLayout);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.show();
+
     }
 
     @Override

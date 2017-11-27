@@ -117,6 +117,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="5dp"
+                    android:padding="2dp"
                     android:gravity="center"
                     android:scaleType="fitXY"
                     android:visibility="invisible" />
@@ -129,6 +130,7 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
+                    android:padding="2dp"
                     android:gravity="center"
                     android:scaleType="fitXY"
                     android:visibility="invisible" />
@@ -144,6 +146,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="2dp"
+                    android:padding="2dp"
                     android:gravity="center"
                     android:scaleType="fitXY"
                     android:visibility="invisible" />
@@ -156,6 +159,7 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="2dp"
+                    android:padding="2dp"
                     android:gravity="center"
                     android:scaleType="fitXY"
                     android:visibility="invisible" />
@@ -171,6 +175,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="2dp"
+                    android:padding="2dp"
                     android:gravity="center"
                     android:scaleType="fitXY"
                     android:visibility="invisible" />
@@ -183,6 +188,7 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="2dp"
+                    android:padding="2dp"
                     android:gravity="center"
                     android:scaleType="fitXY"
                     android:visibility="invisible" />
