@@ -245,7 +245,6 @@ public class MenuWorldCupActivity extends AppCompatActivity {
     }
 
     private void showToast(String showText){
-
         LayoutInflater inflater = getLayoutInflater();// 레이아웃인플레이터객체참조
         View layout = inflater.inflate(// 토스트를위한레이아웃인플레이터
                 R.layout.toastborder,
@@ -253,9 +252,8 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         TextView text = (TextView) layout.findViewById(R.id.text);
         Toast toast = new Toast(this);// 토스트객체생성
         text.setText(showText);
-        text.setGravity(View.TEXT_ALIGNMENT_CENTER);
         text.setTextColor(Color.WHITE);
-        toast.setGravity(Gravity.CENTER, 0, -100);
+        toast.setGravity(Gravity.CENTER, 0, 80);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);// 토스트가보이는뷰설정
         toast.show();
