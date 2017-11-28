@@ -1,4 +1,4 @@
-package com.example.parkminhyun.foodworldcup.ETC;
+package com.example.parkminhyun.foodworldcup.Data;
 
 
 import android.app.Activity;

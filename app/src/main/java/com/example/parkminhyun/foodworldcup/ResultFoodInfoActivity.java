@@ -10,7 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.example.parkminhyun.foodworldcup.ETC.FavoritesStoreSharedPreferences;
+import com.example.parkminhyun.foodworldcup.Data.FavoritesStoreSharedPreferences;
 
 
 public class ResultFoodInfoActivity extends AppCompatActivity {

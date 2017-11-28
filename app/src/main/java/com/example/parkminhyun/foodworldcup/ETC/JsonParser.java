@@ -17,11 +17,6 @@ public class JsonParser {
 
     private static JsonParser instance;
 
-    private List<String> foodStoreNameList = new ArrayList<>();
-    private List<String> foodStoreAddrList = new ArrayList<>();
-    private List<String> foodStoreMapXList = new ArrayList<>();
-    private List<String> foodStoreMapYList = new ArrayList<>();
-
     public static final int foodStoreName = 0;
     public static final int foodStoreAddr = 1;
     public static final int foodStoreMapX = 2;
@@ -43,8 +38,10 @@ public class JsonParser {
     // JSON Data 받기
     public Object ReceiveFoodInfoUsingJSON(String response) {
 
-        foodStoreNameList.clear(); foodStoreAddrList.clear();
-        foodStoreMapXList.clear(); foodStoreMapYList.clear();
+        List<String> foodStoreNameList = new ArrayList<>();
+        List<String> foodStoreAddrList = new ArrayList<>();
+        List<String> foodStoreMapXList = new ArrayList<>();
+        List<String> foodStoreMapYList = new ArrayList<>();
 
         try {
             JSONObject jsonObject = new JSONObject(response.toString());   // JSONObject 생성

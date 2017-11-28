@@ -8,6 +8,9 @@ import android.util.Log;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.parkminhyun.foodworldcup.Data.ListItem;
+import com.example.parkminhyun.foodworldcup.ETC.SessionControl;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;

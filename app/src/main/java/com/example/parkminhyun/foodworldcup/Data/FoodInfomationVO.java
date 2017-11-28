@@ -1,4 +1,4 @@
-package com.example.parkminhyun.foodworldcup.ETC;
+package com.example.parkminhyun.foodworldcup.Data;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;

@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.parkminhyun.foodworldcup.ETC.FoodInfomationVO;
+import com.example.parkminhyun.foodworldcup.Data.FoodInfomationVO;
 import com.example.parkminhyun.foodworldcup.ETC.JsonParser;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAPI_AsnycTask;

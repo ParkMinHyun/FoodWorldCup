@@ -13,7 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.parkminhyun.foodworldcup.ETC.FoodInfomationVO;
+import com.example.parkminhyun.foodworldcup.Data.FoodInfomationVO;
 import com.example.parkminhyun.foodworldcup.ETC.JsonParser;
 import com.example.parkminhyun.foodworldcup.GPS.GPSInfo;
 import com.example.parkminhyun.foodworldcup.GPS.GeoPoint;
