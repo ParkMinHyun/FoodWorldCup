@@ -1,6 +1,7 @@
 package com.example.parkminhyun.foodworldcup;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,6 +59,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
+
         /*
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -68,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         ll = (LinearLayout) findViewById(R.id.ll_loginBackground);
-        ll.setAlpha(0.4f);
+        ll.setAlpha(0.85f);
 
 //        editText = (EditText)findViewById(R.id.editText);
 //        editText2 = (EditText)findViewById(R.id.editText2);

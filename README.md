@@ -25,6 +25,11 @@
 	단, minSDK 21 이상
 	```
 
+	- Android StatusBar Color (MinSDK 21)
+	```
+	getWindow().setStatusBarColor(Color.parseColor("E37FA8"));
+	```
+
 	-	[TableLayout](http://recipes4dev.tistory.com/138)
 	```
 	TableLayout - TableLow 구조를 가짐
@@ -124,4 +129,24 @@
 	```
 	Build-Clean Project
 	Build-Rebuild Project
+	```
+
+	* Layout 투명하게 하기
+	```
+	onCreate에서 LinearLayout 선언 후
+	LinearLayout.setAlpha(0.4f);
+	```
+
+	* 라운드 처리
+	```
+	rounded.xml
+	<?xml version="1.0" encoding="UTF-8"?>
+	<shape xmlns:android="http://schemas.android.com/apk/res/android">
+	    <solid android:color="#FFFFFF"/>
+	    <stroke android:width="3dip" android:color="#FFFFFF" />
+	    <corners android:radius="10dip"/>
+	    <padding android:left="0dip" android:top="0dip" android:right="0dip" android:bottom="0dip" />
+	</shape>
+
+	라운드처리할 객체에 background로 지정
 	```
