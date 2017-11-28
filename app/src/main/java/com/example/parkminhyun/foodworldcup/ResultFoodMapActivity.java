@@ -61,16 +61,15 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     private double latitude, longitude;
     private LatLng currentPos;
     private Address currentDong;
+    private List<Marker> markers;
 
     private String searchText;
     private String cityName, resultFoodName;
     private String homepageUrl, storeName;
 
-    private List<String> foodStoreName, foodStoreAddr, foodStoreMapX, foodStoreMapY;
-    private List<Marker> markers;
-
     private int previousActivity;
     private static final int ResultFoodInfoActivityMode = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,15 +97,10 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 
         // list 초기화
         markers = new ArrayList<Marker>();
-        foodStoreName = new ArrayList<>();
-        foodStoreAddr = new ArrayList<>();
-        foodStoreMapX = new ArrayList<String>();
-        foodStoreMapY = new ArrayList<String>();
-
         gpsInfo = new GPSInfo(this);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -180,41 +174,23 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 
     @Override
     public void processOfNaverAsyncFinish(String response) {
-        ReceiveFoodInfoUsingJSON(response);
+        JsonParser jsonParser = JsonParser.getInstance();
 
+        List<List<String>> foodstoreInfoList = (List<List<String>>) jsonParser.ReceiveFoodInfoUsingJSON(response);
         // Marker 생성
-        for (int i = 0; i < foodStoreName.size(); i++) {
+        for (int i = 0; i < foodstoreInfoList.get(0).size(); i++) {
 
-            GeoPoint geoPoint = new GeoPoint(Double.parseDouble(foodStoreMapX.get(i)), Double.parseDouble(foodStoreMapY.get(i)));
+            GeoPoint geoPoint = new GeoPoint(
+                    Double.parseDouble(foodstoreInfoList.get(JsonParser.foodStoreMapX).get(i)),
+                    Double.parseDouble(foodstoreInfoList.get(JsonParser.foodStoreMapY).get(i)));
+
             convertedGeoPoint = GeoTrans.convert(1, 0, geoPoint);
 
             // marker 생성 완료
             markers.add(gMap.addMarker(new MarkerOptions().position(new LatLng(convertedGeoPoint.y, convertedGeoPoint.x))
-                    .title(foodStoreName.get(i))
-                    .snippet(foodStoreAddr.get(i))
+                    .title(foodstoreInfoList.get(JsonParser.foodStoreName).get(i))
+                    .snippet(foodstoreInfoList.get(JsonParser.foodStoreAddr).get(i))
                     .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("foodstore_pin",120,130)))));
-        }
-    }
-
-    // JSON Data 받기
-    private void ReceiveFoodInfoUsingJSON(String response) {
-        try {
-            JSONObject jsonObject = new JSONObject(response.toString());   // JSONObject 생성
-            String items = jsonObject.getString("items");
-
-            JSONArray jarray = new JSONArray(items);   // JSONArray 생성
-            for (int i = 0; i < jarray.length(); i++) {
-                JSONObject jObject = jarray.getJSONObject(i);  // JSONObject 추출
-
-                String reviseFoodstoreName = jObject.getString("title").replace("<b>", " ");
-                foodStoreName.add(reviseFoodstoreName.replace("</b>", ""));
-                foodStoreAddr.add(jObject.getString("address"));
-                foodStoreMapX.add(jObject.getString("mapx"));
-                foodStoreMapY.add(jObject.getString("mapy"));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 
@@ -229,10 +205,6 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 
         gMap.clear();
         markers.clear();
-        foodStoreName.clear();
-        foodStoreAddr.clear();
-        foodStoreMapX.clear();
-        foodStoreMapY.clear();
 
         addCurrentPosionMarker(currentPos);
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
@@ -254,7 +226,6 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     public void deleteBtnClicked(View v) {
         searchEditText.setText("");
     }
-
 
     public Bitmap resizeMapIcons(String iconName, int width, int height){
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
