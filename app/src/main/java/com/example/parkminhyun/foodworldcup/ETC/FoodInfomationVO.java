@@ -6,9 +6,9 @@ import com.google.common.collect.HashBiMap;
 public class FoodInfomationVO {
 
     private static FoodInfomationVO instance;
+
     public BiMap<String, String> map = HashBiMap.create();
     public BiMap reverseMap;
-
 
     public static FoodInfomationVO getInstance(){
         if(instance==null)

@@ -2,9 +2,11 @@ package com.example.parkminhyun.foodworldcup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -16,18 +18,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.ETC.FoodInfomationVO;
-import com.example.parkminhyun.foodworldcup.NaverAPI.AsyncResponse;
+import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAPI_AsnycTask;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
-public class DrawingLotActivity extends AppCompatActivity implements AsyncResponse, NaverAPI_AsnycTask.AsyncResponse {
+public class DrawingLotActivity extends AppCompatActivity implements NaverAsyncResponse, NaverAPI_AsnycTask.NaverAsyncResponse {
 
     ImageView foodImage1, foodImage2, foodImage3, foodImage4, foodImage5, foodImage6;
     ImageView resultfoodDialogImage;
@@ -40,7 +46,8 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
 
     private List<String> addedFoodNameList = new ArrayList<>();
     private int addedfoodCount = 0, randomNum = 0;
-    private static final int DrawingLotActivity = 1;
+
+    public static final int DrawingLotActivityMode = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +128,7 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         }
 
         // 네이버 검색 API 어싱크로 동작시키기
-        new NaverAPI_AsnycTask(this, inputText.getText().toString()).execute();
+        new NaverAPI_AsnycTask(this, inputText.getText().toString(),DrawingLotActivityMode).execute();
         addedfoodCount++;
     }
 
@@ -180,7 +187,9 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
 
     // AsyncTask onPost 작업 처리
     @Override
-    public void processFinish(String foodThumbnail) {
+    public void processOfNaverAsyncFinish(String response) {
+        String foodThumbnail = receiveFoodInfoUsingJSON(response);
+
         // 이미지 읽어 오기
         Picasso.with(getApplicationContext())
                 .load(foodThumbnail)
@@ -191,10 +200,32 @@ public class DrawingLotActivity extends AppCompatActivity implements AsyncRespon
         addFoodName();
     }
 
+    // JSON Data 받기
+    private String receiveFoodInfoUsingJSON(String response) {
+        String foodThumbnail = null;
+        try {
+            JSONObject jsonObject = new JSONObject(response.toString());   // JSONObject 생성
+            String item = jsonObject.getString("items");
+
+            JSONArray jarray = new JSONArray(item);   // JSONArray 생성
+            JSONObject jObject = jarray.getJSONObject(0);  // JSONObject 추출
+            if (jObject.getString("thumbnail").contains("jpg")) {
+                Log.i("FoodThumnail", jObject.getString("thumbnail"));
+                foodThumbnail = jObject.getString("thumbnail");
+                return foodThumbnail;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return foodThumbnail;
+    }
+
     public void findFoodStoreImageClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
         intent.putExtra("resultFood", addedFoodNameList.get(randomNum));
-        intent.putExtra("previousActivity", DrawingLotActivity);
+        intent.putExtra("previousActivity", DrawingLotActivityMode);
         startActivity(intent);
     }
 

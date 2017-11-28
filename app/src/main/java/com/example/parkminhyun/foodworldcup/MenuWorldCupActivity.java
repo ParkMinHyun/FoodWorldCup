@@ -34,7 +34,7 @@ public class MenuWorldCupActivity extends AppCompatActivity {
     private int resID1, resID2, foodIndex = 0;
     private boolean quarterfinal_flag = false, semifinal_flag = false, final_flag = false;
 
-    public static final int MenuWorldCupActivity = 0;
+    public static final int MenuWorldCupActivityMode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +158,7 @@ public class MenuWorldCupActivity extends AppCompatActivity {
     public void findFoodStore() {
         Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
         intent.putExtra("resultFood", foodTournerment_menuList.get(0));
-        intent.putExtra("previousActivity", MenuWorldCupActivity);
+        intent.putExtra("previousActivity", MenuWorldCupActivityMode);
         startActivity(intent);
     }
 
