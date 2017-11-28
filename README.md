@@ -27,7 +27,7 @@
 
 	- Android StatusBar Color (MinSDK 21)
 	```
-	getWindow().setStatusBarColor(Color.parseColor("E37FA8"));
+	getWindow().setStatusBarColor();
 	```
 
 	-	[TableLayout](http://recipes4dev.tistory.com/138)
@@ -149,4 +149,38 @@
 	</shape>
 
 	라운드처리할 객체에 background로 지정
+	```
+
+ * 경로 지정
+	 ```
+	 Video 같은 경우에는 drawable폴더가 아닌 raw폴더에 담아놓고 경로를 지정하기 때문에, 습관적으로 drawable가 아닌 raw로 되는것을 확인할것
+	 ```
+
+ * 안드로이드 스튜디오 내부경로 uri로 선언
+	```
+	Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.비디오파일명);
+	```
+
+ * VideoView
+	```
+	FrameLayout사용
+	XML에 VideoView 최상위로 깔아놓고
+	JAVA단에서 VideoView 객체 선언
+	VideoView.setVideoURI(URI);
+	VideoView.start();
+
+	미디어컨트롤 생성
+	final MediaController mediaController = new MediaController(this);
+	VideoView.setMediaController(mediaController);
+
+	비디오 뷰에서 Controller 숨기기
+	VideoView.MediaController(null);
+
+	비디오뷰 반복재생
+	vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+		@Override
+		public void onPrepared(MediaPlayer mediaPlayer) {
+			mediaPlayer.setLooping(true);
+		}
+		})
 	```

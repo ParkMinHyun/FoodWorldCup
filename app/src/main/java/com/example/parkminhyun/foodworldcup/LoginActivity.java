@@ -1,12 +1,16 @@
 package com.example.parkminhyun.foodworldcup;
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.example.parkminhyun.foodworldcup.Data.ListItem;
 import com.facebook.CallbackManager;
@@ -29,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     ArrayList<ListItem> listitem = new ArrayList<ListItem>();
 
     LinearLayout ll;
+    VideoView vv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +50,33 @@ public class LoginActivity extends AppCompatActivity {
 //        getSupportActionBar().setCustomView(R.layout.login_bar);
         setContentView(R.layout.activity_login);
 
-        ll = (LinearLayout) findViewById(R.id.ll_loginBackground);
-        ll.setAlpha(0.85f);
+//        ll = (LinearLayout) findViewById(R.id.ll_loginBackground);
+//        ll.setAlpha(0.85f);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.background_video);
+        vv = (MyVideoView) findViewById(R.id.vv_loginBackground);
+        vv.setVideoURI(uri);
+
+//        final MediaController mediaController = new MediaController(this);
+        vv.setMediaController(null);
+        vv.start();
+
+        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer.setLooping(true);
+            }
+        });
+
+//        android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) vv.getLayoutParams();
+//        params.width = metrics.widthPixels;
+//        params.height = metrics.heightPixels;
+//        params.leftMargin = 0;
+//        vv.setLayoutParams(params);
+
 
 //        editText = (EditText)findViewById(R.id.editText);
 //        editText2 = (EditText)findViewById(R.id.editText2);
@@ -103,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 //        });
 
     }
+
 //    private void setBtnLoginFacebook(){
 //        if(AccessToken.getCurrentAccessToken()!=null){
 //            btnLoginFacebook.setOnClickListener(new View.OnClickListener(){
