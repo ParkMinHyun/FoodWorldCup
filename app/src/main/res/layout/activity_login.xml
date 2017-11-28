@@ -37,7 +37,7 @@
         android:background="@drawable/rounded"
         android:elevation="5dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <View
             android:layout_width="match_parent"
@@ -83,11 +83,19 @@
             android:text="J O I N"
             android:textSize="18dp" />
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_loginFaceBook"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="5dp"/>
+
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="50dp"
             android:layout_marginHorizontal="30dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_corner_button"
@@ -107,7 +115,8 @@
         android:layout_marginHorizontal="50dp"
         android:background="@drawable/rounded"
         android:elevation="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
             android:layout_width="match_parent"
