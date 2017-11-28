@@ -1,4 +1,6 @@
-package com.example.parkminhyun.foodworldcup;
+package com.example.parkminhyun.foodworldcup.ETC;
+
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,6 +69,28 @@ public class JsonParser {
         foodstoreInfo.add(foodStoreMapXList); foodstoreInfo.add(foodStoreMapYList);
 
         return foodstoreInfo;
+    }
+
+    // JSON Data 받기
+    public String receiveFoodThumbnailUsingJSON(String response) {
+        String foodThumbnail = null;
+        try {
+            JSONObject jsonObject = new JSONObject(response.toString());   // JSONObject 생성
+            String item = jsonObject.getString("items");
+
+            JSONArray jarray = new JSONArray(item);   // JSONArray 생성
+            JSONObject jObject = jarray.getJSONObject(0);  // JSONObject 추출
+            if (jObject.getString("thumbnail").contains("jpg")) {
+                Log.i("FoodThumnail", jObject.getString("thumbnail"));
+                foodThumbnail = jObject.getString("thumbnail");
+                return foodThumbnail;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return foodThumbnail;
     }
 
 }

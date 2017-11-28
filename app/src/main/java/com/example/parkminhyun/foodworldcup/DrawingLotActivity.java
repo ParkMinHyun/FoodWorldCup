@@ -2,11 +2,9 @@ package com.example.parkminhyun.foodworldcup;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -18,15 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.ETC.FoodInfomationVO;
+import com.example.parkminhyun.foodworldcup.ETC.JsonParser;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAPI_AsnycTask;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +144,6 @@ public class DrawingLotActivity extends AppCompatActivity implements NaverAsyncR
             Toast.makeText(getApplicationContext(), "음식을 추가해주세요", Toast.LENGTH_SHORT).show();
             return;
         }
-
         showResultFood();
     }
 
@@ -188,7 +182,8 @@ public class DrawingLotActivity extends AppCompatActivity implements NaverAsyncR
     // AsyncTask onPost 작업 처리
     @Override
     public void processOfNaverAsyncFinish(String response) {
-        String foodThumbnail = receiveFoodInfoUsingJSON(response);
+        JsonParser jsonParser = JsonParser.getInstance();
+        String foodThumbnail = jsonParser.receiveFoodThumbnailUsingJSON(response);
 
         // 이미지 읽어 오기
         Picasso.with(getApplicationContext())
@@ -198,28 +193,6 @@ public class DrawingLotActivity extends AppCompatActivity implements NaverAsyncR
         // 음식 이름 추가
         resultFoodImageInfoMap.put(inputText.getText().toString(),foodThumbnail);
         addFoodName();
-    }
-
-    // JSON Data 받기
-    private String receiveFoodInfoUsingJSON(String response) {
-        String foodThumbnail = null;
-        try {
-            JSONObject jsonObject = new JSONObject(response.toString());   // JSONObject 생성
-            String item = jsonObject.getString("items");
-
-            JSONArray jarray = new JSONArray(item);   // JSONArray 생성
-            JSONObject jObject = jarray.getJSONObject(0);  // JSONObject 추출
-            if (jObject.getString("thumbnail").contains("jpg")) {
-                Log.i("FoodThumnail", jObject.getString("thumbnail"));
-                foodThumbnail = jObject.getString("thumbnail");
-                return foodThumbnail;
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return foodThumbnail;
     }
 
     public void findFoodStoreImageClicked(View view) {

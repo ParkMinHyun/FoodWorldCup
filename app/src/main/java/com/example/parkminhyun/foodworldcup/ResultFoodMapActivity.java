@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -15,11 +14,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.ETC.FoodInfomationVO;
+import com.example.parkminhyun.foodworldcup.ETC.JsonParser;
 import com.example.parkminhyun.foodworldcup.GPS.GPSInfo;
 import com.example.parkminhyun.foodworldcup.GPS.GeoPoint;
 import com.example.parkminhyun.foodworldcup.GPS.GeoTrans;
-import com.example.parkminhyun.foodworldcup.NaverAPI.JSoup_AsnynTask;
-import com.example.parkminhyun.foodworldcup.NaverAPI.JsoupAsyncResponse;
+import com.example.parkminhyun.foodworldcup.JSoup.JSoup_AsnynTask;
+import com.example.parkminhyun.foodworldcup.JSoup.JsoupAsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAPI_AsnycTask;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,13 +31,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.common.collect.BiMap;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

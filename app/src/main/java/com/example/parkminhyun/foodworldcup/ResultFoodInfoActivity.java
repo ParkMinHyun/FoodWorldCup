@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.ETC.FavoritesStoreSharedPreferences;
 
@@ -64,6 +65,10 @@ public class ResultFoodInfoActivity extends AppCompatActivity {
         changeTintColorOfFavoritesBtn(favoritesFlag);
 
         favoritesStoreSharedPreferences.savePreferences(this, storeURL, favoritesFlag);
+
+        // Toast 띄우기
+        Toast.makeText(getApplicationContext(),
+                (favoritesFlag)? "즐겨찾기 등록되었습니다." : "즐겨찾기 등록이 해제되었습니다." ,Toast.LENGTH_SHORT);
     }
 
     private void changeTintColorOfFavoritesBtn(Boolean favoritesFlag) {

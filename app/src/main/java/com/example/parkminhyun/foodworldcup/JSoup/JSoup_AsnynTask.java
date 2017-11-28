@@ -1,4 +1,4 @@
-package com.example.parkminhyun.foodworldcup.NaverAPI;
+package com.example.parkminhyun.foodworldcup.JSoup;
 
 import android.os.AsyncTask;
 

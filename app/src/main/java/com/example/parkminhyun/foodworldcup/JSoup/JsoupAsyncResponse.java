@@ -1,4 +1,4 @@
-package com.example.parkminhyun.foodworldcup.NaverAPI;
+package com.example.parkminhyun.foodworldcup.JSoup;
 
 /**
  * Created by ParkMinHyun on 2017-11-28.
