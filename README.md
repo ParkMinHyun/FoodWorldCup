@@ -151,17 +151,17 @@
 	라운드처리할 객체에 background로 지정
 	```
 
- * 경로 지정
+	 * 경로 지정
 	 ```
 	 Video 같은 경우에는 drawable폴더가 아닌 raw폴더에 담아놓고 경로를 지정하기 때문에, 습관적으로 drawable가 아닌 raw로 되는것을 확인할것
 	 ```
 
- * 안드로이드 스튜디오 내부경로 uri로 선언
+	 * 안드로이드 스튜디오 내부경로 uri로 선언
 	```
 	Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.비디오파일명);
 	```
 
- * VideoView
+	 * VideoView
 	```
 	FrameLayout사용
 	XML에 VideoView 최상위로 깔아놓고
@@ -183,4 +183,30 @@
 			mediaPlayer.setLooping(true);
 		}
 		})
+	```
+
+	* [VideoView FullScreen](http://javaexpert.tistory.com/365)
+	```
+	VideoView를 상속받은 View Class를 따로 구현
+	MyVideoView.java
+	public class MyVideoView extends VideoView {
+		public MyVideoView(Context context, AttributeSet attrs) {
+		    super(context, attrs);
+		} // Constructor
+
+		@Override
+		protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+		    DisplayMetrics displayMetrics = new DisplayMetrics();
+
+		    Display dis = ((WindowManager)getContext().
+				    getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+		    setMeasuredDimension(dis.getWidth(), dis.getHeight());
+		}		
+	}
+
+	그리고 해당 Activity.JAVA 에서 VideoView로 만들고 객체를 선언할 때 (VideoView) findViewById 가 아닌 (MyVideoView) 로 변환한 후
+	VideoView의 요소들을 그대로 사용하면됨 (상속받았기 때문에)
+
 	```

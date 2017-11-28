@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -32,51 +35,69 @@ public class LoginActivity extends AppCompatActivity {
     public static String result;
     ArrayList<ListItem> listitem = new ArrayList<ListItem>();
 
-    LinearLayout ll;
-    VideoView vv;
+    // 안태현
+    VideoView videoView;
+
+    Button loginStartButton;
+
+    boolean isLoginPageOpen = false;
+
+    LinearLayout loginLayout;
+
+    Animation translateUpAnimation;
+    Animation translateDownAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
-
-        /*
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-               */
-        FacebookSdk.sdkInitialize(this);
-//        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//        getSupportActionBar().setCustomView(R.layout.login_bar);
         setContentView(R.layout.activity_login);
 
-//        ll = (LinearLayout) findViewById(R.id.ll_loginBackground);
-//        ll.setAlpha(0.85f);
+        // 안태현
+        // 안드로이드 statusBar Color 변경
+        getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
 
+        loginLayout = (LinearLayout) findViewById(R.id.ll_loginBackground);
+
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.background_video);
+
+        // VideoView 설정
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.background_video);
-        vv = (MyVideoView) findViewById(R.id.vv_loginBackground);
-        vv.setVideoURI(uri);
-
-//        final MediaController mediaController = new MediaController(this);
-        vv.setMediaController(null);
-        vv.start();
-
-        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        videoView = (MyVideoView) findViewById(R.id.vv_loginBackground);
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mediaPlayer.setLooping(true);
             }
         });
 
-//        android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) vv.getLayoutParams();
-//        params.width = metrics.widthPixels;
-//        params.height = metrics.heightPixels;
-//        params.leftMargin = 0;
-//        vv.setLayoutParams(params);
+        videoView.setVideoURI(uri);
+        videoView.setMediaController(null);
+        videoView.start();
 
+        translateUpAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_up);
+        translateDownAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_down);
+
+        SlidingAnimationListener animListener = new SlidingAnimationListener();
+        translateUpAnimation.setAnimationListener(animListener);
+        translateDownAnimation.setAnimationListener(animListener);
+
+        loginStartButton = (Button) findViewById(R.id.btn_loginStart);
+        loginStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isLoginPageOpen) {
+                    loginLayout.startAnimation(translateDownAnimation);
+                } else {
+                    loginLayout.setVisibility(View.VISIBLE);
+                    loginLayout.startAnimation(translateUpAnimation);
+                }
+            }
+        });
+
+        // 황수정
+        FacebookSdk.sdkInitialize(this);
 
 //        editText = (EditText)findViewById(R.id.editText);
 //        editText2 = (EditText)findViewById(R.id.editText2);
@@ -132,6 +153,21 @@ public class LoginActivity extends AppCompatActivity {
 //            }
 //        });
 
+    }
+
+    // 슬라이딩 애니메이션 리스너 - 안태현
+    private class SlidingAnimationListener implements Animation.AnimationListener {
+        public void onAnimationEnd(Animation animation) {
+            if (isLoginPageOpen) {
+                loginLayout.setVisibility(View.INVISIBLE);
+                isLoginPageOpen = false;
+            } else {
+                isLoginPageOpen = true;
+            }
+        }
+
+        public void onAnimationRepeat(Animation animation) {}
+        public void onAnimationStart(Animation animation) {}
     }
 
 //    private void setBtnLoginFacebook(){

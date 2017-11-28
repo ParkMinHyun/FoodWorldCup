@@ -26,11 +26,6 @@ public class MyVideoView extends VideoView {
         Display dis = ((WindowManager)getContext().
                         getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
-        ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
-        int deviceWidth = displayMetrics.widthPixels;
-        int deviceHeight = displayMetrics.heightPixels;
-
-//        setMeasuredDimension(dis.getWidth(), dis.getHeight());
-        setMeasuredDimension(deviceWidth, deviceHeight);
+        setMeasuredDimension(dis.getWidth(), dis.getHeight());
     }
 }
