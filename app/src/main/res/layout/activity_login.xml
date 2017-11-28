@@ -52,6 +52,7 @@
             android:paddingHorizontal="30dp">
 
             <EditText
+                android:id="@+id/edit_lgoinID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="ID" />
@@ -64,6 +65,7 @@
             android:paddingHorizontal="30dp">
 
             <EditText
+                android:id="@+id/Edit_loginPW"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
@@ -71,6 +73,7 @@
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
         <TextView
+            android:id="@+id/text_join"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -81,6 +84,7 @@
             android:textSize="18dp" />
 
         <Button
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="50dp"
@@ -107,30 +111,6 @@
         android:elevation="7dp"
         android:text="시 작 하 기"/>
 
-
-    <!--////////////////////////////////////////////////-->
-
-
-    <!--<EditText-->
-        <!--android:id="@+id/editText"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="ID"-->
-        <!--android:paddingLeft="15dp"-->
-        <!--android:singleLine="true"-->
-        <!--android:maxLength="10"-->
-        <!--android:layout_marginTop="40dp"-->
-        <!--android:textSize="25dp"/>-->
-    <!--<EditText-->
-        <!--android:id="@+id/editText2"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="Password"-->
-        <!--android:paddingLeft="15dp"-->
-        <!--android:singleLine="true"-->
-        <!--android:maxLength="15"-->
-        <!--android:textSize="25dp"-->
-        <!--android:inputType="textPassword"/>-->
     <!--<Button-->
         <!--android:id="@+id/btnLogin"-->
         <!--android:layout_width="match_parent"-->
@@ -167,9 +147,5 @@
         <!--android:layout_marginLeft="10dp"-->
         <!--android:layout_marginRight="10dp"-->
         <!--android:onClick="onButton1Clicked"/>-->
-    <!--<TextView-->
-        <!--android:id="@+id/textView3"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="로그인 전"/>-->
+
 </FrameLayout>
