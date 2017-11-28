@@ -22,6 +22,7 @@ import android.widget.VideoView;
 
 import com.example.parkminhyun.foodworldcup.Data.ListItem;
 import com.example.parkminhyun.foodworldcup.ETC.SessionControl;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -44,10 +45,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
-    LoginButton btnLoginFacebook;
 
     public static int chk=0;
     int flag=0;
@@ -59,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
     Button loginStartButton;
     Button loginButton;
+
+    LoginButton facebookLoginButton;
 
     boolean isLoginPageOpen = false;
 
@@ -161,31 +164,31 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        btnLoginFacebook = (LoginButton) findViewById(R.id.btnLoginFacebook);
-//        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-//                /*
-//                //이름받기 불가능
-//                String name = Profile.getCurrentProfile().getFirstName();
-//                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-//                intent.putExtra("name",name);
-//                startActivity(intent);
-//                */
-//            }
-//            @Override
-//            public void onCancel() {
-//
-//            }
-//            @Override
-//            public void onError(FacebookException error) {
-//
-//            }
-//        });
-//        setBtnLoginFacebook();
-//        LoginManager.getInstance().logOut();
-//    }
+        facebookLoginButton = (LoginButton) findViewById(R.id.btn_loginFaceBook);
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                /*
+                //이름받기 불가능
+                String name = Profile.getCurrentProfile().getFirstName();
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.putExtra("name",name);
+                startActivity(intent);
+                */
+            }
+            @Override
+            public void onCancel() {
+
+            }
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+        setBtnLoginFacebook();
+        LoginManager.getInstance().logOut();
+
     }
 
     // 슬라이딩 애니메이션 리스너 - 안태현
@@ -203,35 +206,35 @@ public class LoginActivity extends AppCompatActivity {
         public void onAnimationStart(Animation animation) {}
     }
 
-//    private void setBtnLoginFacebook(){
-//        if(AccessToken.getCurrentAccessToken()!=null){
-//            btnLoginFacebook.setOnClickListener(new View.OnClickListener(){
-//                @Override
-//                public void onClick(View v) {
-//                    if(flag==1) {
-//                        LoginManager.getInstance().logOut();
-//                        setBtnLoginFacebook();
-//                    }
-//                }
-//            });
-//        }
-//        else if(AccessToken.getCurrentAccessToken()==null){
-//            btnLoginFacebook.setOnClickListener(new View.OnClickListener(){
-//                @Override
-//                public void onClick(View v) {
-//                    if(flag==0) {
-//                        if(AccessToken.getCurrentAccessToken()!=null) {
-//                            LoginManager.getInstance().logInWithReadPermissions(
-//                                    LoginActivity.this, Arrays.asList("public_profile"));
-//                            flag = 1;
-//                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                            startActivity(intent);
-//                        }
-//                    }
-//                }
-//            });
-//        }
-//    }
+    private void setBtnLoginFacebook() {
+        if(AccessToken.getCurrentAccessToken()!=null){
+            facebookLoginButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    if(flag==1) {
+                        LoginManager.getInstance().logOut();
+                        setBtnLoginFacebook();
+                    }
+                }
+            });
+        }
+        else if(AccessToken.getCurrentAccessToken()==null){
+            facebookLoginButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    if(flag==0) {
+                        if(AccessToken.getCurrentAccessToken()!=null) {
+                            LoginManager.getInstance().logInWithReadPermissions(
+                                    LoginActivity.this, Arrays.asList("public_profile"));
+                            flag = 1;
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
+            });
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
