@@ -83,10 +83,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         previousActivity = getIntent().getExtras().getInt("previousActivity");
 
         // EditText 내용 초기화
-        if (foodMap.get(resultFoodName) != null)
-            searchEditText.setText(foodMap.get(resultFoodName));
-        else
-            searchEditText.setText(resultFoodName);
+        searchEditText.setText((foodMap.get(resultFoodName) != null) ? foodMap.get(resultFoodName) : resultFoodName);
 
         // list 초기화
         markers = new ArrayList<Marker>();
@@ -138,7 +135,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
                 : cityName + ' ' + resultFoodName;
 
         // 네이버 검색 API 어싱크로 동작시키기
-        new NaverAPI_AsnycTask(this, searchText,ResultFoodInfoActivityMode).execute();
+        new NaverAPI_AsnycTask(this, searchText, ResultFoodInfoActivityMode).execute();
     }
 
 
@@ -159,9 +156,9 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     }
 
     @Override
-    public void processOfJsoupAsyncFinish(String result) {
+    public void processOfJsoupAsyncFinish(String storeURL) {
         Intent intent = new Intent(getApplicationContext(), ResultFoodInfoActivity.class);
-        intent.putExtra("StoreURL", result);
+        intent.putExtra("StoreURL", storeURL);
         startActivity(intent);
     }
 
@@ -169,7 +166,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     public void processOfNaverAsyncFinish(String response) {
         JsonParser jsonParser = JsonParser.getInstance();
 
-        List<List<String>> foodstoreInfoList = (List<List<String>>) jsonParser.ReceiveFoodInfoUsingJSON(response);
+        List<List<String>> foodstoreInfoList = (List<List<String>>) jsonParser.ReceiveFoodStoreInfoUsingJSON(response);
         // Marker 생성
         for (int i = 0; i < foodstoreInfoList.get(0).size(); i++) {
 
@@ -183,12 +180,11 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             markers.add(gMap.addMarker(new MarkerOptions().position(new LatLng(convertedGeoPoint.y, convertedGeoPoint.x))
                     .title(foodstoreInfoList.get(JsonParser.foodStoreName).get(i))
                     .snippet(foodstoreInfoList.get(JsonParser.foodStoreAddr).get(i))
-                    .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("foodstore_pin",120,130)))));
+                    .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("foodstore_pin", 120, 130)))));
         }
     }
 
     public void findFoodStoreBtnClicked(View v) {
-
         // 키보드 내리기
         hideSoftKeyboard(v);
 
@@ -196,6 +192,7 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         if (searchEditText.getText().length() != 0)
             searchText = cityName + ' ' + searchEditText.getText();
 
+        // Map Clear
         gMap.clear();
         markers.clear();
 
@@ -203,12 +200,12 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
 
         // 네이버 검색 API 어싱크로 동작시키기
-        new NaverAPI_AsnycTask(this, searchText,ResultFoodInfoActivityMode).execute();
+        new NaverAPI_AsnycTask(this, searchText, ResultFoodInfoActivityMode).execute();
     }
 
     private void addCurrentPosionMarker(LatLng currentPos) {
         gMap.addMarker(new MarkerOptions().position(currentPos)
-                .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("currentposition_pin",120,130))));
+                .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("currentposition_pin", 120, 130))));
     }
 
     protected void hideSoftKeyboard(View view) {
@@ -220,8 +217,8 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         searchEditText.setText("");
     }
 
-    public Bitmap resizeMapIcons(String iconName, int width, int height){
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
+    public Bitmap resizeMapIcons(String iconName, int width, int height) {
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(iconName, "drawable", getPackageName()));
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
         return resizedBitmap;
     }

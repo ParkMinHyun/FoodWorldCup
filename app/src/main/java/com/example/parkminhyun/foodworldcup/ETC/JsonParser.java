@@ -36,7 +36,7 @@ public class JsonParser {
 
 
     // JSON Data 받기
-    public Object ReceiveFoodInfoUsingJSON(String response) {
+    public Object ReceiveFoodStoreInfoUsingJSON(String response) {
 
         List<String> foodStoreNameList = new ArrayList<>();
         List<String> foodStoreAddrList = new ArrayList<>();

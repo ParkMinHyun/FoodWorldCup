@@ -13,14 +13,15 @@ import java.util.List;
 public class SessionControl {
     static public DefaultHttpClient httpClient = null;
     static public List<Cookie> cookies;
-    public static HttpClient getHttpClient(){
-        if(httpClient==null){
+
+    public static HttpClient getHttpClient() {
+        if (httpClient == null) {
             SessionControl.setHttpClient(new DefaultHttpClient());
         }
         return httpClient;
     }
 
     public static void setHttpClient(DefaultHttpClient httpClient) {
-        SessionControl.httpClient=httpClient;
+        SessionControl.httpClient = httpClient;
     }
 }

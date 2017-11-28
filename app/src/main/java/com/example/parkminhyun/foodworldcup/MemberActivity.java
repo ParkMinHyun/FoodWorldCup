@@ -45,6 +45,7 @@ public class MemberActivity extends AppCompatActivity {
         scrollView.setHorizontalScrollBarEnabled(true);
         infoDown();
     }
+
     private String infoDown(){
         class PostReqAsyncTask extends AsyncTask<String,Void,String> {
             @Override

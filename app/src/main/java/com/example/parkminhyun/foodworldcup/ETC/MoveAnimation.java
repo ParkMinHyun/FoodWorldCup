@@ -6,6 +6,10 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 
+/**
+ * Created by ParkMinHyun on 2017-11-25.
+ */
+
 public class MoveAnimation extends Animation implements Animation.AnimationListener {
     public int height, width;
 

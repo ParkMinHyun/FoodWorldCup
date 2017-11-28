@@ -30,7 +30,6 @@ public class ResultFoodInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result_food_info);
 
         propertyInit();
-
     }
 
     private void propertyInit() {
@@ -68,7 +67,7 @@ public class ResultFoodInfoActivity extends AppCompatActivity {
 
         // Toast 띄우기
         Toast.makeText(getApplicationContext(),
-                (favoritesFlag)? "즐겨찾기 등록되었습니다." : "즐겨찾기 등록이 해제되었습니다." ,Toast.LENGTH_SHORT);
+                (favoritesFlag) ? "즐겨찾기 등록되었습니다." : "즐겨찾기 등록이 해제되었습니다.", Toast.LENGTH_SHORT);
     }
 
     private void changeTintColorOfFavoritesBtn(Boolean favoritesFlag) {
