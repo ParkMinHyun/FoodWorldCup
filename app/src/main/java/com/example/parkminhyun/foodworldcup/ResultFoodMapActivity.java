@@ -18,6 +18,8 @@ import com.example.parkminhyun.foodworldcup.ETC.FoodInfomationVO;
 import com.example.parkminhyun.foodworldcup.GPS.GPSInfo;
 import com.example.parkminhyun.foodworldcup.GPS.GeoPoint;
 import com.example.parkminhyun.foodworldcup.GPS.GeoTrans;
+import com.example.parkminhyun.foodworldcup.NaverAPI.JSoup_AsnynTask;
+import com.example.parkminhyun.foodworldcup.NaverAPI.JsoupAsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAsyncResponse;
 import com.example.parkminhyun.foodworldcup.NaverAPI.NaverAPI_AsnycTask;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,7 +45,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResultFoodMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, NaverAsyncResponse, NaverAPI_AsnycTask.NaverAsyncResponse {
+public class ResultFoodMapActivity extends FragmentActivity implements OnMapReadyCallback,
+        GoogleMap.OnInfoWindowClickListener, NaverAsyncResponse, NaverAPI_AsnycTask.NaverAsyncResponse,
+        JsoupAsyncResponse, JSoup_AsnynTask.JsoupAsyncResponse {
 
     private GPSInfo gpsInfo;
     private FoodInfomationVO foodInfomationVO;
@@ -157,8 +161,9 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
             storeName = URLEncoder.encode(marker.getTitle().toString(), "UTF-8");
 
             homepageUrl = "https://m.search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=" + storeName;
-            JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
-            jsoupAsyncTask.execute();
+
+            // 네이버 검색 API 어싱크로 동작시키기
+            new JSoup_AsnynTask(this, homepageUrl, storeName).execute();
             Toast.makeText(getApplicationContext(), marker.getTitle().toString(), Toast.LENGTH_SHORT).show();
 
         } catch (UnsupportedEncodingException e) {
@@ -167,8 +172,14 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
     }
 
     @Override
-    public void processOfNaverAsyncFinish(String response) {
+    public void processOfJsoupAsyncFinish(String result) {
+        Intent intent = new Intent(getApplicationContext(), ResultFoodInfoActivity.class);
+        intent.putExtra("StoreURL", result);
+        startActivity(intent);
+    }
 
+    @Override
+    public void processOfNaverAsyncFinish(String response) {
         ReceiveFoodInfoUsingJSON(response);
 
         // Marker 생성
@@ -204,43 +215,6 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-    }
-
-    private class JsoupAsyncTask extends AsyncTask<Void, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            try {
-                Document doc = Jsoup.connect(homepageUrl).get();
-                Elements link = doc.select(".biz_name");
-                if(link == null){
-                    link = doc.select(".item_info");
-                }
-
-                String relHref = link.attr("href");
-
-                StringBuilder relHrefStringBuilder = new StringBuilder(relHref);
-                String baseURL = relHrefStringBuilder.substring(0, relHrefStringBuilder.indexOf("query=") + "query=".length());
-
-                return baseURL + storeName;
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Intent intent = new Intent(getApplicationContext(), ResultFoodInfoActivity.class);
-            intent.putExtra("StoreURL", result);
-            startActivity(intent);
         }
     }
 
@@ -287,4 +261,5 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
         return resizedBitmap;
     }
+
 }
