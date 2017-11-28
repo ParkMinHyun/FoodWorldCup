@@ -98,6 +98,80 @@
 
     </LinearLayout>
 
+    <!--회원가입 Layout-->
+    <LinearLayout
+        android:id="@+id/ll_joinLayout"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/rounded"
+        android:elevation="5dp"
+        android:orientation="vertical">
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"/>
+
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ID"/>
+
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password Check"
+                android:inputType="textPassword" />
+
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner_button"
+            android:text="회 원 가 입"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:elevation="5dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="30dp"/>
+    </LinearLayout>
+
+    <!--시작하기-->
     <Button
         android:id="@+id/btn_loginStart"
         android:layout_width="200dp"
