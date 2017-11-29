@@ -36,6 +36,7 @@ public class JoinActivity extends AppCompatActivity {
     EditText pwText2;
     Button idCheck;
     Button btnJoin;
+
     String user_Name,user_ID,user_Password,PWcheck;
     String result;
     @Override

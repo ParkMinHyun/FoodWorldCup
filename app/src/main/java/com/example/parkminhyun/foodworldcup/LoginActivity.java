@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button loginStartButton;
     Button loginButton;
+    Button joinButton;
 
     LoginButton facebookLoginButton;
 
@@ -78,8 +79,18 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText loginIDEdit;
     EditText loginPWEdit;
+    EditText joinIDEdit;
+    EditText joinNameEdit;
+    EditText joinPWEdit;
+    EditText joinPWCHKEdit;
 
     CallbackManager callbackManager;
+
+    String userName,
+           userID,
+           userPassword,
+           userPasswordCheck,
+           joinResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,47 +212,134 @@ public class LoginActivity extends AppCompatActivity {
         setBtnLoginFacebook();
         LoginManager.getInstance().logOut();
 
+        joinNameEdit = (EditText) findViewById(R.id.edit_joinName);
+        joinIDEdit = (EditText) findViewById(R.id.edit_joinName);
+        joinPWEdit = (EditText) findViewById(R.id.edit_joinPW);
+        joinPWCHKEdit = (EditText) findViewById(R.id.edit_joinPWCHK);
+
+        joinButton = (Button) findViewById(R.id.btn_JOIN);
+        joinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                userName = joinNameEdit.getText().toString();
+                userID = joinIDEdit.getText().toString();
+                userPassword = joinPWEdit.getText().toString();
+                userPasswordCheck = joinPWCHKEdit.getText().toString();
+
+                if(userPasswordCheck.equals(userPassword)) {
+                    insertToDB(userID, userName, userPassword);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "result * : " + result, Toast.LENGTH_LONG).show();
+                            if (result.equals("1")) {
+                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            }
+                        }
+                    }, 2000);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"비밀번호 확인 해주십시오.", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+    }
+
+    private String insertToDB(String ID, String Name, String Password){
+        class PostReqAsyncTask extends AsyncTask<String,Void,String> {
+            @Override
+            protected String doInBackground(String... params)
+            {
+                String ID = params[0];
+                String Name = params[1];
+                String Password = params[2];
+                //String result="";
+                Log.v("TAG","백그라운드 작업   ID=" + ID +"Name="+Name+" Password=" + Password);
+                StringBuilder stringBuilder = new StringBuilder();
+                HttpClient httpClient = SessionControl.getHttpClient();
+
+                HttpPost httpPost = new HttpPost("http://iove951221.dothome.co.kr/join2.php");
+                List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
+                nameValuePairList.add(new BasicNameValuePair("ID",ID));
+                nameValuePairList.add(new BasicNameValuePair("Name",Name));
+                nameValuePairList.add(new BasicNameValuePair("Password",Password));
+                try {
+                    UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairList,"UTF-8");
+                    httpPost.setEntity(urlEncodedFormEntity);
+
+                    try {
+                        HttpResponse httpResponse = httpClient.execute(httpPost);
+
+                        InputStream inputStream = httpResponse.getEntity().getContent();
+                        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                        String bufferedStrChunk = null;
+                        while((bufferedStrChunk = bufferedReader.readLine()) != null){
+                            stringBuilder.append(bufferedStrChunk);
+                        }
+
+                        Log.v("TAG","result1:"+stringBuilder.toString());/////<==  이곳에서   서버에서  보내온 메시지를 확인해 볼 수 있다..
+                        //////         성공/실패 여부에 따라 적절히  대응하자.
+                        result=stringBuilder.toString();
+                        Log.v("TAG","result2:"+result);
+                        return result;
+                    }
+                    catch (ClientProtocolException cpe) {
+                        Log.v("TAG","First Exception caz of HttpResponese :" + cpe);
+                        cpe.printStackTrace();
+                    } catch (IOException ioe) {
+                        Log.v("TAG","Second Exception caz of HttpResponse :" + ioe);
+                        ioe.printStackTrace();
+                    }
+
+                } catch (UnsupportedEncodingException uee) {
+                    Log.v("TAG","An Exception given because of UrlEncodedFormEntity argument :" + uee);
+                    uee.printStackTrace();
+                }
+                Log.v("TAG","result3:"+result);
+                return result;
+            }
+
+            protected void onPostExecute(String res)
+            {
+                super.onPostExecute(res);
+                Log.v("TAG","POST : "+res);
+                result=res;
+                Log.v("TAG","POST : "+result);
+            }/// onPostExecute
+
+        }
+        ///////////////////////////////////
+        // 이곳에서 로그인을 위한 웹문서를 비동기 백그라운드로 요청한다.
+        PostReqAsyncTask Task = new PostReqAsyncTask();
+        Task.execute(ID, Name, Password);     // 비동기 방식 백그라운드로 받아 오기.....
+        ///////////////////////////////////
+        return result;
     }
 
     // 슬라이딩 애니메이션 리스너 - 안태현
     private class SlidingAnimationListener implements Animation.AnimationListener {
         public void onAnimationEnd(Animation animation) {
 
-            Log.d("HYEON", "SlidingAnimationListener 1");
-
             if (isLoginPageOpen && isStartButtonClicked) {
                 loginLayout.setVisibility(View.INVISIBLE);
                 isLoginPageOpen = false;
-            } else {
+            } else if (isStartButtonClicked) {
                 isLoginPageOpen = true;
             }
 
             if (isJoinPageOpen && isJoinButtonClicked) {
-                Log.d("HYEON", "SlidingAnimationListener 2");
                 joinLayout.setVisibility(View.INVISIBLE);
                 isJoinPageOpen = false;
-            } else {
+            } else if (isJoinButtonClicked) {
                 isJoinPageOpen = true;
             }
 
             isStartButtonClicked = false;
             isJoinButtonClicked = false;
-            Log.d("HYEON", "SlidingAnimationListener 3");
-        }
-
-        public void onAnimationRepeat(Animation animation) {}
-        public void onAnimationStart(Animation animation) {}
-    }
-
-    // 슬라이딩 애니메이션 리스너 - 안태현
-    private class JoinSlidingAnimationListener implements Animation.AnimationListener {
-        public void onAnimationEnd(Animation animation) {
-            if (isJoinPageOpen) {
-                joinLayout.setVisibility(View.INVISIBLE);
-                isJoinPageOpen = false;
-            } else {
-                isJoinPageOpen = true;
-            }
         }
 
         public void onAnimationRepeat(Animation animation) {}

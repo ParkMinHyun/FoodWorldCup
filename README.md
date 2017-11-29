@@ -210,3 +210,5 @@
 	VideoView의 요소들을 그대로 사용하면됨 (상속받았기 때문에)
 
 	```
+
+  * [안드로이드 가상머신 물리키보드 사용하기](https://stackoverflow.com/questions/45411145/android-emulators-enable-keyboard-input-always-unchecked-after-mac-os-sierra)
