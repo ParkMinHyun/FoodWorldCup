@@ -129,18 +129,38 @@
                 android:hint="Name"/>
 
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-
-        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp">
+            android:paddingHorizontal="30dp"
+            android:orientation="horizontal">
 
-            <EditText
-                android:layout_width="match_parent"
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="ID"/>
+                android:layout_weight="2">
 
-        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="ID" />
+
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <Button
+                android:id="@+id/btn_checkID"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:elevation="5dp"
+                android:background="@drawable/rounded_corner_button"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:text="ID 체크"/>
+            
+        </LinearLayout>
 
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
             android:layout_width="match_parent"
