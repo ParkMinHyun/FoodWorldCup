@@ -64,8 +64,12 @@ public class LoginActivity extends AppCompatActivity {
     LoginButton facebookLoginButton;
 
     boolean isLoginPageOpen = false;
+    boolean isStartButtonClicked = false;
+    boolean isJoinPageOpen = false;
+    boolean isJoinButtonClicked = false;
 
     LinearLayout loginLayout;
+    LinearLayout joinLayout;
 
     Animation translateUpAnimation;
     Animation translateDownAnimation;
@@ -86,7 +90,8 @@ public class LoginActivity extends AppCompatActivity {
         // 안드로이드 statusBar Color 변경
         getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
 
-        loginLayout = (LinearLayout) findViewById(R.id.ll_loginBackground);
+        loginLayout = (LinearLayout) findViewById(R.id.ll_loginLayout);
+        joinLayout = (LinearLayout) findViewById(R.id.ll_joinLayout);
 
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.background_video);
 
@@ -117,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         loginStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isStartButtonClicked = true;
                 if (isLoginPageOpen) {
                     loginLayout.startAnimation(translateDownAnimation);
                 } else {
@@ -160,7 +166,13 @@ public class LoginActivity extends AppCompatActivity {
         joinTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), JoinActivity.class));
+                isJoinButtonClicked = true;
+                if (isJoinPageOpen) {
+                    joinLayout.startAnimation(translateDownAnimation);
+                } else {
+                    joinLayout.setVisibility(View.VISIBLE);
+                    joinLayout.startAnimation(translateUpAnimation);
+                }
             }
         });
 
@@ -194,11 +206,41 @@ public class LoginActivity extends AppCompatActivity {
     // 슬라이딩 애니메이션 리스너 - 안태현
     private class SlidingAnimationListener implements Animation.AnimationListener {
         public void onAnimationEnd(Animation animation) {
-            if (isLoginPageOpen) {
+
+            Log.d("HYEON", "SlidingAnimationListener 1");
+
+            if (isLoginPageOpen && isStartButtonClicked) {
                 loginLayout.setVisibility(View.INVISIBLE);
                 isLoginPageOpen = false;
             } else {
                 isLoginPageOpen = true;
+            }
+
+            if (isJoinPageOpen && isJoinButtonClicked) {
+                Log.d("HYEON", "SlidingAnimationListener 2");
+                joinLayout.setVisibility(View.INVISIBLE);
+                isJoinPageOpen = false;
+            } else {
+                isJoinPageOpen = true;
+            }
+
+            isStartButtonClicked = false;
+            isJoinButtonClicked = false;
+            Log.d("HYEON", "SlidingAnimationListener 3");
+        }
+
+        public void onAnimationRepeat(Animation animation) {}
+        public void onAnimationStart(Animation animation) {}
+    }
+
+    // 슬라이딩 애니메이션 리스너 - 안태현
+    private class JoinSlidingAnimationListener implements Animation.AnimationListener {
+        public void onAnimationEnd(Animation animation) {
+            if (isJoinPageOpen) {
+                joinLayout.setVisibility(View.INVISIBLE);
+                isJoinPageOpen = false;
+            } else {
+                isJoinPageOpen = true;
             }
         }
 
@@ -316,9 +358,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-    public void onBtnJoinClicked(View v){
-
-    }
+    public void onBtnJoinClicked(View v) { }
     public void onButton1Clicked(View v){
         startActivity(new Intent(this,MemberActivity.class));
     }

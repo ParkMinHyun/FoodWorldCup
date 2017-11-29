@@ -29,7 +29,7 @@
 
     <!--로그인 레이아웃-->
     <LinearLayout
-        android:id="@+id/ll_loginBackground"
+        android:id="@+id/ll_loginLayout"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_marginTop="150dp"
@@ -37,7 +37,7 @@
         android:background="@drawable/rounded"
         android:elevation="5dp"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <View
             android:layout_width="match_parent"
@@ -194,32 +194,6 @@
         android:elevation="7dp"
         android:text="시 작 하 기"/>
 
-    <!--<Button-->
-        <!--android:id="@+id/btnLogin"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="LOGIN"-->
-        <!--android:onClick="onBtnLoginClicked"-->
-        <!--android:layout_margin="10dp"-->
-        <!--android:textSize="20dp"/>-->
-    <!--<com.facebook.login.widget.LoginButton-->
-        <!--android:id="@+id/btnLoginFacebook"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:paddingTop="10dp"-->
-        <!--android:paddingBottom="10dp"-->
-        <!--android:paddingLeft="20dp"-->
-        <!--android:layout_marginLeft="13dp"-->
-        <!--android:layout_marginRight="13dp"-->
-        <!--android:textSize="18dp" />-->
-    <!--<Button-->
-        <!--android:id="@+id/btnJoin"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="JOIN"-->
-        <!--android:textSize="20dp"-->
-        <!--android:layout_margin="10dp"-->
-        <!--android:onClick="onBtnJoinClicked"/>-->
     <!--<Button-->
         <!--android:id="@+id/button1"-->
         <!--android:layout_width="match_parent"-->
