@@ -1,5 +1,6 @@
 package com.example.parkminhyun.foodworldcup;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         translateLeftAnim.setAnimationListener(animListener);
         translateRightAnim.setAnimationListener(animListener);
 
+        Intent intent = new Intent(MainActivity.this,
+                NetworkChangeReceiver.class);
+        sendBroadcast(intent);
     }
 
     private class SlidingPageAnimationListener implements Animation.AnimationListener {
