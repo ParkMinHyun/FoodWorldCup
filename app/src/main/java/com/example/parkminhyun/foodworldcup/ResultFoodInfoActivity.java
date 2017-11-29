@@ -29,6 +29,8 @@ public class ResultFoodInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_food_info);
 
+        getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
+
         propertyInit();
     }
 

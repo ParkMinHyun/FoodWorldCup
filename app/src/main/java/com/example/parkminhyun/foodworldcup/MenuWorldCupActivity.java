@@ -45,6 +45,8 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         menuListInit();
         foodImageViewSetting();
 
+        getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
+
         // Music 시작
         Intent intent = new Intent( getApplicationContext(),MusicPlayerService.class);
         startService(intent);

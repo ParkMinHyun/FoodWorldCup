@@ -34,8 +34,10 @@
         </activity>
 
         <activity android:name=".MainActivity"/>
-        <activity android:name=".MenuWorldCupActivity"/>
-        <activity android:name=".ResultFoodMapActivity"/>
+        <activity android:name=".MenuWorldCupActivity">
+        </activity>
+        <activity android:name=".ResultFoodMapActivity">
+        </activity>
         <activity android:name=".ResultFoodInfoActivity" />
         <activity android:name=".DrawingLotActivity"/>
         <activity android:name=".JoinActivity" />

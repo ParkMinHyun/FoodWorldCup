@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     public static int chk=0;
     int flag=0;
     int num=0;
-    public static String result;
+    String result;
     ArrayList<ListItem> listitem = new ArrayList<ListItem>();
 
     VideoView videoView;
@@ -163,9 +163,12 @@ public class LoginActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "result * : " + result, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "result * : " + result, Toast.LENGTH_LONG).show();
                         if (result.equals("1")) {
+                            Toast.makeText(LoginActivity.this, "로그인에 성공하였습니다 :)", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        } else {
+                            Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다 :(", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, 1000);
@@ -213,7 +216,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginManager.getInstance().logOut();
 
         joinNameEdit = (EditText) findViewById(R.id.edit_joinName);
-        joinIDEdit = (EditText) findViewById(R.id.edit_joinName);
+        joinIDEdit = (EditText) findViewById(R.id.edit_joinID);
         joinPWEdit = (EditText) findViewById(R.id.edit_joinPW);
         joinPWCHKEdit = (EditText) findViewById(R.id.edit_joinPWCHK);
 
@@ -233,17 +236,23 @@ public class LoginActivity extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getApplicationContext(), "result * : " + result, Toast.LENGTH_LONG).show();
-                            if (result.equals("1")) {
-                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                            }
+                            Toast.makeText(LoginActivity.this, "회원가입에 성공하였습니다 :)", Toast.LENGTH_SHORT).show();
+                            isJoinPageOpen = false;
+                            joinLayout.setVisibility(View.GONE);
+//                            Toast.makeText(getApplicationContext(), "result * : " + result, Toast.LENGTH_LONG).show();
+//                            if (result == "1") {
+//                                Toast.makeText(LoginActivity.this, "회원가입에 성공하였습니다 :)", Toast.LENGTH_SHORT).show();
+//                                isJoinPageOpen = false;
+//                                joinLayout.setVisibility(View.GONE);
+//                            } else {
+//                                Toast.makeText(LoginActivity.this, "회원가입에 실패하였습니다 :(", Toast.LENGTH_SHORT).show();
+//                            }
                         }
                     }, 2000);
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"비밀번호 확인 해주십시오.", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
     }
@@ -261,7 +270,7 @@ public class LoginActivity extends AppCompatActivity {
                 StringBuilder stringBuilder = new StringBuilder();
                 HttpClient httpClient = SessionControl.getHttpClient();
 
-                HttpPost httpPost = new HttpPost("http://iove951221.dothome.co.kr/join2.php");
+                HttpPost httpPost = new HttpPost("http://iove951221.dothome.co.kr/join3.php");
                 List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
                 nameValuePairList.add(new BasicNameValuePair("ID",ID));
                 nameValuePairList.add(new BasicNameValuePair("Name",Name));

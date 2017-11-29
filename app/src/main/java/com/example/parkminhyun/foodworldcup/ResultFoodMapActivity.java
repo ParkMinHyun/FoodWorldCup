@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -68,6 +70,8 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_food_map);
 
+        getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
+
         propertyInit();
     }
 
@@ -100,17 +104,22 @@ public class ResultFoodMapActivity extends FragmentActivity implements OnMapRead
         gMap.setOnInfoWindowClickListener(this);
 
         // 현재 위치 성절 및 이동
-        currentPos = new LatLng(gpsInfo.getLatitude(), gpsInfo.getLongitude());
+//        currentPos = new LatLng(gpsInfo.getLatitude(), gpsInfo.getLongitude());
+        currentPos = new LatLng(37.550481, 127.073128);
         addCurrentPosionMarker(currentPos);
+
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPos, 15));
 
         latitude = gpsInfo.getLatitude();
         longitude = gpsInfo.getLongitude();
 
+        latitude = 37.550481;
+        longitude = 127.073128;
+
         Geocoder gCoder = new Geocoder(getApplicationContext());
         List<Address> addr = null;
         try {
-            addr = gCoder.getFromLocation(latitude, longitude, 2);
+            addr = gCoder.getFromLocation(37.550481, 127.073128, 2);
         } catch (IOException e) {
             e.printStackTrace();
         }

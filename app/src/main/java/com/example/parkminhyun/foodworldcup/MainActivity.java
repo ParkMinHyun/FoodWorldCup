@@ -1,5 +1,6 @@
 package com.example.parkminhyun.foodworldcup;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,10 +24,16 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView myPageimageView;
 
+    LinearLayout foodWorldCupLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 안태현
+        // 안드로이드 statusBar Color 변경
+        getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
 
         myPageButton = (ImageButton) findViewById(R.id.imgBtn_myPage);
         myPageButton.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
         SlidingPageAnimationListener animListener = new SlidingPageAnimationListener();
         translateLeftAnim.setAnimationListener(animListener);
         translateRightAnim.setAnimationListener(animListener);
+
+        foodWorldCupLayout = (LinearLayout) findViewById(R.id.ll_mainFoodWorldCup);
+        foodWorldCupLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MenuWorldCupActivity.class));
+            }
+        });
 
     }
 
