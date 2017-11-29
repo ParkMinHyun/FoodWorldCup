@@ -39,6 +39,8 @@
         <activity android:name=".ResultFoodInfoActivity" />
         <activity android:name=".DrawingLotActivity"/>
         <activity android:name=".JoinActivity" />
+        <service android:name=".MusicPlayerService"/>
+
         <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -44,6 +44,10 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         propertyInit();
         menuListInit();
         foodImageViewSetting();
+
+        // Music 시작
+        Intent intent = new Intent( getApplicationContext(),MusicPlayerService.class);
+        startService(intent);
     }
 
     // id 추가 및 기타 속성 초기화
@@ -156,6 +160,11 @@ public class MenuWorldCupActivity extends AppCompatActivity {
     }
 
     public void findFoodStore() {
+
+        // Music 종료
+        Intent musicIntent = new Intent( getApplicationContext(),MusicPlayerService.class);
+        stopService(musicIntent);
+
         Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
         intent.putExtra("resultFood", foodTournerment_menuList.get(0));
         intent.putExtra("previousActivity", MenuWorldCupActivityMode);
