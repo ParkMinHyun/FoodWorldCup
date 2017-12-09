@@ -20,6 +20,7 @@ import com.example.parkminhyun.foodworldcup.ETC.MoveAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MenuWorldCupActivity extends AppCompatActivity {
 
@@ -237,6 +238,23 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         foodTournerment_menuList.add("steak");
         foodTournerment_menuList.add("sushi");
         foodTournerment_menuList.add("zazang");
+
+        shufflingFoodList();
+    }
+
+    private void shufflingFoodList()
+    {
+        int foodCount = 16;
+        Random rand = new Random();
+
+        for( int start=0; start < foodCount; start++ )
+        {
+            int dest =  rand.nextInt(16) + 1;
+
+            String temp = foodTournerment_menuList.get(start);
+            foodTournerment_menuList.set(start,foodTournerment_menuList.get(dest));
+            foodTournerment_menuList.set(dest,temp);
+        }
     }
 
     // 애니메이션 리스너 정의
