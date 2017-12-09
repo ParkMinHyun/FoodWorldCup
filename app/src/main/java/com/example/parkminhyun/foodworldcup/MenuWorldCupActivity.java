@@ -67,7 +67,7 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         downImageCheck = (ImageView) findViewById(R.id.downImageCheck);
 
         foodInfomationVO = new FoodInfomationVO();
-        foodTournerment_menuList = foodInfomationVO.getFoodTournerment_menuList();
+        foodTournerment_menuList = foodInfomationVO.getFood_menuList();
 
         // 애니메이션객체로딩
         translateUpAnim = AnimationUtils.loadAnimation(this, R.anim.translate_up);

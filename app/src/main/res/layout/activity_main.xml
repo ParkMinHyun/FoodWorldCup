@@ -150,7 +150,8 @@
             android:layout_weight="2"
             android:layout_margin="30dp"
             android:elevation="5dp"
-            android:background="#FFFFFF">
+            android:background="#FFFFFF"
+            android:onClick="drawinglotBtnClick">
 
             <ImageView
                 android:layout_width="0dp"
@@ -171,7 +172,7 @@
                     android:gravity="center"
                     android:textSize="28dp"
                     android:textStyle="bold"
-                    android:text="주변 맛집"
+                    android:text="제비 뽑기"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"/>
@@ -184,7 +185,7 @@
                     android:gravity="center"
                     android:layout_marginBottom="15dp"
                     android:layout_marginRight="15dp"
-                    android:text="현재 있는 위치에서\n소문난 맛집을 알려줄게요"/>
+                    android:text="정해진 음식에서\n골라보아요"/>
 
             </LinearLayout>
         </LinearLayout>

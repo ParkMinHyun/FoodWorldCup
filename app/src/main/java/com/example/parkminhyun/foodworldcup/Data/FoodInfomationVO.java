@@ -92,7 +92,7 @@ public class FoodInfomationVO {
         Random rand = new Random();
 
         for (int start = 0; start < foodCount; start++) {
-            int dest = rand.nextInt(16) + 1;
+            int dest = rand.nextInt(16);
 
             String temp = food_menuList.get(start);
             food_menuList.set(start, food_menuList.get(dest));

@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void menuInit() {
-        foodNameMap = foodInfomationVO.getReverseMap();
+        foodInfomationVO = new FoodInfomationVO();
+        foodNameMap = foodInfomationVO.getMap();
         addedFoodNameList = foodInfomationVO.getFood_menuList();
     }
 
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         randomNum = random.nextInt(16);
 
         // food Data Set에 있는 음식일 경우
-        int resID = getResources().getIdentifier(foodNameMap.get(addedFoodNameList.get(randomNum)), "drawable", getPackageName());
+        int resID = getResources().getIdentifier(addedFoodNameList.get(randomNum), "drawable", getPackageName());
         resultfoodImageView.setImageResource(resID);
 
         // Dialog 띄우기
@@ -114,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.show();
 
+    }
+
+    public void drawinglotBtnClick(View view) {
+        startActivity(new Intent(getApplicationContext(), DrawingLotActivity.class));
     }
 
     private class SlidingPageAnimationListener implements Animation.AnimationListener {
@@ -136,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void findFoodStoreImageClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
-        intent.putExtra("resultFood", addedFoodNameList.get(randomNum));
+        intent.putExtra("resultFood", foodNameMap.get(addedFoodNameList.get(randomNum)));
         intent.putExtra("previousActivity", DrawingLotActivityMode);
         startActivity(intent);
     }
