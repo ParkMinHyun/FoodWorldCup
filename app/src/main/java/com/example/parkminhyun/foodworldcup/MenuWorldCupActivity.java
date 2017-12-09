@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.parkminhyun.foodworldcup.Data.FoodInfomationVO;
 import com.example.parkminhyun.foodworldcup.ETC.MoveAnimation;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class MenuWorldCupActivity extends AppCompatActivity {
 
     private Animation translateUpAnim;
 
-    private List<String> foodTournerment_menuList = new ArrayList<>();
+    private FoodInfomationVO foodInfomationVO;
+    private List<String> foodTournerment_menuList;
     private String mDrawableName1, mDrawableName2;
     private int resID1, resID2, foodIndex = 0;
     private boolean quarterfinal_flag = false, semifinal_flag = false, final_flag = false;
@@ -43,7 +45,6 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_world_cup);
 
         propertyInit();
-        menuListInit();
         foodImageViewSetting();
 
         getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
@@ -64,6 +65,9 @@ public class MenuWorldCupActivity extends AppCompatActivity {
         downCrown = (ImageView) findViewById(R.id.downImageWinner);
         topImageCheck = (ImageView) findViewById(R.id.topImageCheck);
         downImageCheck = (ImageView) findViewById(R.id.downImageCheck);
+
+        foodInfomationVO = new FoodInfomationVO();
+        foodTournerment_menuList = foodInfomationVO.getFoodTournerment_menuList();
 
         // 애니메이션객체로딩
         translateUpAnim = AnimationUtils.loadAnimation(this, R.anim.translate_up);
@@ -220,42 +224,6 @@ public class MenuWorldCupActivity extends AppCompatActivity {
             topImage.setClickable(true);
         }
     };
-
-    public void menuListInit() {
-        foodTournerment_menuList.add("baekban");
-        foodTournerment_menuList.add("bibimbab");
-        foodTournerment_menuList.add("bread");
-        foodTournerment_menuList.add("cake");
-        foodTournerment_menuList.add("chicken");
-        foodTournerment_menuList.add("dduckppoki");
-        foodTournerment_menuList.add("donggas");
-        foodTournerment_menuList.add("doughnut");
-        foodTournerment_menuList.add("gimbab");
-        foodTournerment_menuList.add("hamburger");
-        foodTournerment_menuList.add("ramen");
-        foodTournerment_menuList.add("sandwich");
-        foodTournerment_menuList.add("spagetti");
-        foodTournerment_menuList.add("steak");
-        foodTournerment_menuList.add("sushi");
-        foodTournerment_menuList.add("zazang");
-
-        shufflingFoodList();
-    }
-
-    private void shufflingFoodList()
-    {
-        int foodCount = 16;
-        Random rand = new Random();
-
-        for( int start=0; start < foodCount; start++ )
-        {
-            int dest =  rand.nextInt(16) + 1;
-
-            String temp = foodTournerment_menuList.get(start);
-            foodTournerment_menuList.set(start,foodTournerment_menuList.get(dest));
-            foodTournerment_menuList.set(dest,temp);
-        }
-    }
 
     // 애니메이션 리스너 정의
     private class SlidingPageAnimationListener implements Animation.AnimationListener {

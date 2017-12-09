@@ -2,18 +2,35 @@ package com.example.parkminhyun.foodworldcup;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.parkminhyun.foodworldcup.Data.FoodInfomationVO;
+import com.google.common.collect.BiMap;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     boolean isPageOpen = false;
+    private int randomNum;
+    public static final int DrawingLotActivityMode = 1;
+
+    private FoodInfomationVO foodInfomationVO;
+    private BiMap<String, String> foodNameMap;
+    private List<String> addedFoodNameList = new ArrayList<>();
 
     Animation translateLeftAnim;
     Animation translateRightAnim;
@@ -30,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        menuInit();
 
         // 안태현
         // 안드로이드 statusBar Color 변경
@@ -68,6 +87,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void menuInit() {
+        foodNameMap = foodInfomationVO.getReverseMap();
+        addedFoodNameList = foodInfomationVO.getFood_menuList();
+    }
+
+    // Dialog 띄우기
+    public void todayMenuClick(View view) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog dialog = builder.create();
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogLayout = inflater.inflate(R.layout.resultfood_dialog, null);
+        ImageView resultfoodImageView = dialogLayout.findViewById(R.id.resultfoodDialogImage);
+
+        // 랜덤으로 선택된 음식 Dialog ImageView에 뿌려주기
+        Random random = new Random();
+        randomNum = random.nextInt(16);
+
+        // food Data Set에 있는 음식일 경우
+        int resID = getResources().getIdentifier(foodNameMap.get(addedFoodNameList.get(randomNum)), "drawable", getPackageName());
+        resultfoodImageView.setImageResource(resID);
+
+        // Dialog 띄우기
+        dialog.setView(dialogLayout);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.show();
+
+    }
+
     private class SlidingPageAnimationListener implements Animation.AnimationListener {
         public void onAnimationEnd(Animation animation) {
             if (isPageOpen) {
@@ -84,4 +132,13 @@ public class MainActivity extends AppCompatActivity {
         public void onAnimationStart(Animation animation) {
         }
     }
+
+
+    public void findFoodStoreImageClicked(View view) {
+        Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
+        intent.putExtra("resultFood", addedFoodNameList.get(randomNum));
+        intent.putExtra("previousActivity", DrawingLotActivityMode);
+        startActivity(intent);
+    }
+
 }
