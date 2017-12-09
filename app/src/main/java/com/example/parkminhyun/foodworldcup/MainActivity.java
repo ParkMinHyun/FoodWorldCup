@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.Data.FoodInfomationVO;
 import com.google.common.collect.BiMap;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout foodWorldCupLayout;
 
     AlertDialog.Builder changeNickNameAlertDialog;
+    AlertDialog.Builder changePassWordAlertDialog;
 
     TextView nickNameTextView;
     TextView nickNameChangeTextView;
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 닉네임을 변경하는 AlertDialog
         changeNickNameAlertDialog = new AlertDialog.Builder(MainActivity.this);
-        changeNickNameAlertDialog.setTitle("닉네임 변경하기");
+        changeNickNameAlertDialog.setTitle("닉네임 변경");
         changeNickNameAlertDialog.setMessage("변경할 닉네임을 입력해주세요 :)");
 
         final EditText inputChangeEditText = new EditText(MainActivity.this);
@@ -117,11 +120,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        nickNameChangeTextView = (TextView) findViewById(R.id.txtView_change);
+        nickNameChangeTextView = (TextView) findViewById(R.id.txtView_changeNickName);
         nickNameChangeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeNickNameAlertDialog.show();
+            }
+        });
+
+        // 비밀번호를 변경하는 Dialog Alert Custom (EditText 추가)
+        changePassWordAlertDialog = new AlertDialog.Builder(MainActivity.this);
+        changePassWordAlertDialog.setTitle("비밀번호 변경");
+        changePassWordAlertDialog.setMessage("변경할 비밀번호를 입력해주세요 :)");
+        final EditText inputPassWordEditText = new EditText(MainActivity.this);
+        inputPassWordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        changePassWordAlertDialog.setView(inputPassWordEditText);
+
+        changePassWordAlertDialog.setPositiveButton("변경", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MainActivity.this, "비밀번호가 정상적으로 변경되었습니다", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        changePassWordAlertDialog.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        passWordChangeTextView = (TextView) findViewById(R.id.txtView_changePW);
+        passWordChangeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changePassWordAlertDialog.show();
             }
         });
 
