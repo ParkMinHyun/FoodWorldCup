@@ -94,9 +94,9 @@ public class FoodInfomationVO {
         for (int start = 0; start < foodCount; start++) {
             int dest = rand.nextInt(16) + 1;
 
-            String temp = foodTournerment_menuList.get(start);
-            foodTournerment_menuList.set(start, foodTournerment_menuList.get(dest));
-            foodTournerment_menuList.set(dest, temp);
+            String temp = food_menuList.get(start);
+            food_menuList.set(start, food_menuList.get(dest));
+            food_menuList.set(dest, temp);
         }
     }
 }
