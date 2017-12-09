@@ -1,5 +1,6 @@
 package com.example.parkminhyun.foodworldcup;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
@@ -10,9 +11,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.parkminhyun.foodworldcup.Data.FoodInfomationVO;
 import com.google.common.collect.BiMap;
@@ -43,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout foodWorldCupLayout;
 
-    @Override
+    AlertDialog.Builder changeNickNameAlertDialog;
+
+    TextView nickNameTextView;
+    TextView nickNameChangeTextView;
+    TextView passWordChangeTextView;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -85,7 +93,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+        nickNameTextView = (TextView) findViewById(R.id.txtView_nickName);
+
+        // 닉네임을 변경하는 AlertDialog
+        changeNickNameAlertDialog = new AlertDialog.Builder(MainActivity.this);
+        changeNickNameAlertDialog.setTitle("닉네임 변경하기");
+        changeNickNameAlertDialog.setMessage("변경할 닉네임을 입력해주세요 :)");
+
+        final EditText inputChangeEditText = new EditText(MainActivity.this);
+        changeNickNameAlertDialog.setView(inputChangeEditText);
+
+        changeNickNameAlertDialog.setPositiveButton("변경", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                nickNameTextView.setText(inputChangeEditText.getText());
+            }
+        });
+
+        changeNickNameAlertDialog.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        nickNameChangeTextView = (TextView) findViewById(R.id.txtView_change);
+        nickNameChangeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeNickNameAlertDialog.show();
+            }
+        });
+
+    } // onCreate
 
     private void menuInit() {
         foodInfomationVO = new FoodInfomationVO();

@@ -210,6 +210,7 @@
             android:paddingHorizontal="30dp"
             android:src="@drawable/main_man_circle"/>
         <TextView
+            android:id="@+id/txtView_nickName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
@@ -222,10 +223,11 @@
             android:layout_height="0dp"
             android:layout_weight="0.8"/>
         <TextView
+            android:id="@+id/txtView_change"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#EBEBEB"
-            android:text="공 지 사 항"
+            android:text="회원정보 변경"
             android:gravity="center"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -235,34 +237,34 @@
             android:layout_height="0dp"
             android:background="#E2E1E2"
             android:layout_weight="0.05"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#EBEBEB"
-            android:text="공 지 사 항"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_weight="1"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:background="#EBEBEB"-->
+            <!--android:text="공 지 사 항"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="20dp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_weight="1"/>-->
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#E2E1E2"
-            android:layout_weight="0.05"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#EBEBEB"
-            android:text="공 지 사 항"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_weight="1"/>
+            android:layout_weight="1.05"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:background="#EBEBEB"-->
+            <!--android:text="공 지 사 항"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="20dp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_weight="1"/>-->
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#E2E1E2"
-            android:layout_weight="0.05"/>
+            android:layout_weight="1.05"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
