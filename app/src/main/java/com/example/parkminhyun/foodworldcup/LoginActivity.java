@@ -118,13 +118,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // VideoView에서 기본적으로 재생/일시정지를 감추기 위한
+        // MediaController 을 null 로 지정한다
         videoView.setVideoURI(uri);
         videoView.setMediaController(null);
         videoView.start();
 
+        // 애니메이션 객체 추가
         translateUpAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_up);
         translateDownAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_down);
 
+        // 슬라이딩 애니메이션에 리스너 추가
         SlidingAnimationListener animListener = new SlidingAnimationListener();
         translateUpAnimation.setAnimationListener(animListener);
         translateDownAnimation.setAnimationListener(animListener);
@@ -145,25 +149,18 @@ public class LoginActivity extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(this);
 
+        // 각 버튼에 클릭 이벤트 추가
         loginIDEdit = (EditText) findViewById(R.id.edit_lgoinID);
         loginPWEdit = (EditText) findViewById(R.id.Edit_loginPW);
         loginButton = (Button) findViewById(R.id.btn_login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*String value;
-                value=sendPostRequest(editText.getText().toString(),editText2.getText().toString());
-                Toast.makeText(getApplicationContext(),"value * : "+value,Toast.LENGTH_LONG).show();
-                if(value=="1") {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
-                }*/
                 sendPostRequest(loginIDEdit.getText().toString(), loginPWEdit.getText().toString());
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        Toast.makeText(getApplicationContext(), "result * : " + result, Toast.LENGTH_LONG).show();
                         if (result.equals("1")) {
                             Toast.makeText(LoginActivity.this, "로그인에 성공하였습니다 :)", Toast.LENGTH_SHORT).show();
                             Toast.makeText(LoginActivity.this, joinNameEdit.getText().toString(), Toast.LENGTH_SHORT).show();
@@ -200,13 +197,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                /*
-                //이름받기 불가능
-                String name = Profile.getCurrentProfile().getFirstName();
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                intent.putExtra("name",name);
-                startActivity(intent);
-                */
             }
             @Override
             public void onCancel() {
@@ -225,6 +215,7 @@ public class LoginActivity extends AppCompatActivity {
         joinPWEdit = (EditText) findViewById(R.id.edit_joinPW);
         joinPWCHKEdit = (EditText) findViewById(R.id.edit_joinPWCHK);
 
+        // 회원가입 버튼 이벤트 추가
         joinButton = (Button) findViewById(R.id.btn_JOIN);
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,14 +235,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "회원가입에 성공하였습니다 :)", Toast.LENGTH_SHORT).show();
                             isJoinPageOpen = false;
                             joinLayout.setVisibility(View.GONE);
-//                            Toast.makeText(getApplicationContext(), "result * : " + result, Toast.LENGTH_LONG).show();
-//                            if (result == "1") {
-//                                Toast.makeText(LoginActivity.this, "회원가입에 성공하였습니다 :)", Toast.LENGTH_SHORT).show();
-//                                isJoinPageOpen = false;
-//                                joinLayout.setVisibility(View.GONE);
-//                            } else {
-//                                Toast.makeText(LoginActivity.this, "회원가입에 실패하였습니다 :(", Toast.LENGTH_SHORT).show();
-//                            }
                         }
                     }, 2000);
                 }
@@ -262,6 +245,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    // 회원가입을 할 경우 DB에 해당 정보를 insert
     private String insertToDB(String ID, String Name, String Password){
         class PostReqAsyncTask extends AsyncTask<String,Void,String> {
             @Override
@@ -396,6 +380,8 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    // 패스워드를 변경하기 위한 메소드
+    // 서버와 HTTP 통신을 통해 비밀번호를 변경한다
     private String sendPostRequest(String ID, String Password){
         class SendPostReqAsyncTask extends AsyncTask<String,Void,String> {
             @Override

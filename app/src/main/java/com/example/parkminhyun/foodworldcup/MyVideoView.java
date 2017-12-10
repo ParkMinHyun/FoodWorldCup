@@ -12,6 +12,7 @@ import android.widget.VideoView;
  * Created by hyeon on 2017. 11. 28..
  */
 
+// VideoView를 꽉 채우기 위해서 Custom VideoView를 추가한다
 public class MyVideoView extends VideoView {
 
     public MyVideoView(Context context, AttributeSet attrs) {

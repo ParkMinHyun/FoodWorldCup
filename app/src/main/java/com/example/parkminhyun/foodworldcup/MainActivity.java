@@ -171,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
         inputPassWordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         changePassWordAlertDialog.setView(inputPassWordEditText);
 
+        // 패스워드에서 변경 버튼을 눌렀을 경우
+        // 서버와의 통신을 통해 데이터를 변경한다
         changePassWordAlertDialog.setPositiveButton("변경", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
