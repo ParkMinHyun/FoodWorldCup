@@ -166,7 +166,12 @@ public class LoginActivity extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), "result * : " + result, Toast.LENGTH_LONG).show();
                         if (result.equals("1")) {
                             Toast.makeText(LoginActivity.this, "로그인에 성공하였습니다 :)", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            Toast.makeText(LoginActivity.this, joinNameEdit.getText().toString(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("name", joinNameEdit.getText().toString());
+                            intent.putExtra("ID", loginIDEdit.getText().toString());
+                            intent.putExtra("password", loginPWEdit.getText().toString());
+                            startActivity(intent);
                         } else {
                             Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다 :(", Toast.LENGTH_SHORT).show();
                         }

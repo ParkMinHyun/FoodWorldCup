@@ -3,10 +3,13 @@ package com.example.parkminhyun.foodworldcup;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -20,9 +23,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.Data.FoodInfomationVO;
+import com.example.parkminhyun.foodworldcup.ETC.SessionControl;
 import com.google.common.collect.BiMap;
 import com.squareup.picasso.Picasso;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -59,9 +76,16 @@ public class MainActivity extends AppCompatActivity {
 
     TextView myPageID;
 
+    String result;
+    char getResult;
+    EditText PWEdit;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent loginIntent = getIntent();
+        final Bundle data = loginIntent.getExtras();
 
         menuInit();
 
@@ -137,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        PWEdit = (EditText) findViewById(R.id.Edit_loginPW);
+
         // 비밀번호를 변경하는 Dialog Alert Custom (EditText 추가)
         changePassWordAlertDialog = new AlertDialog.Builder(MainActivity.this);
         changePassWordAlertDialog.setTitle("비밀번호 변경");
@@ -148,7 +174,24 @@ public class MainActivity extends AppCompatActivity {
         changePassWordAlertDialog.setPositiveButton("변경", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(MainActivity.this, "비밀번호가 정상적으로 변경되었습니다", Toast.LENGTH_SHORT).show();
+                String ID = data.getString("ID");
+                String Password = inputPassWordEditText.getText().toString();
+                sendPostRequest(ID, Password);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(getResult=='O'){
+                            Toast.makeText(getApplicationContext(),"비밀번호가 정상적으로 변경되었습니다 :)", Toast.LENGTH_LONG).show();
+                        }
+                        else if(getResult=='X'){
+                            Toast.makeText(getApplicationContext(),"비밀번호 변경 실패",Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"result이상",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, 500);
             }
         });
 
@@ -166,6 +209,8 @@ public class MainActivity extends AppCompatActivity {
                 changePassWordAlertDialog.show();
             }
         });
+
+        nickNameTextView.setText(data.getString("name"));
 
     } // onCreate
 
@@ -226,6 +271,75 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("resultFood", foodNameMap.get(addedFoodNameList.get(randomNum)));
         intent.putExtra("previousActivity", DrawingLotActivityMode);
         startActivity(intent);
+    }
+
+    // 비밀번호 변경하는 SendRequest
+    private String sendPostRequest(String ID,String Password){
+        class SendPostReqAsyncTask extends AsyncTask<String,Void,Character> {
+            @Override
+            protected Character doInBackground(String... params)
+            {
+                String ID = params[0];
+                String Password = params[1];
+                Log.v("TAG","백그라운드 작업   ID=" + ID + " Password=" + Password);
+                StringBuilder stringBuilder = new StringBuilder();
+                HttpClient httpClient = SessionControl.getHttpClient();
+
+                HttpPost httpPost = new HttpPost("http://iove951221.dothome.co.kr/pwchange.php");
+                List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
+                nameValuePairList.add(new BasicNameValuePair("ID",ID));
+                nameValuePairList.add(new BasicNameValuePair("Password",Password));
+                try {
+                    UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairList,"UTF-8");
+                    httpPost.setEntity(urlEncodedFormEntity);
+
+                    try {
+                        HttpResponse httpResponse = httpClient.execute(httpPost);
+
+                        InputStream inputStream = httpResponse.getEntity().getContent();
+                        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                        String bufferedStrChunk = null;
+                        while((bufferedStrChunk = bufferedReader.readLine()) != null){
+                            stringBuilder.append(bufferedStrChunk);
+                        }
+
+                        Log.v("TAG","result1:"+stringBuilder.toString());//이곳에서 서버에서 보내온 메시지를 확인해 볼 수 있다..
+                        //////         성공/실패 여부에 따라 적절히  대응하자.
+                        result=stringBuilder.toString();
+                        Log.d("TAG","length"+result.length());
+                        getResult=result.charAt(0);
+                        Log.d("TAG","getResult"+getResult);
+                        return getResult;
+                    }
+                    catch (ClientProtocolException cpe) {
+                        Log.v("TAG","First Exception caz of HttpResponese :" + cpe);
+                        cpe.printStackTrace();
+                    } catch (IOException ioe) {
+                        Log.v("TAG","Second Exception caz of HttpResponse :" + ioe);
+                        ioe.printStackTrace();
+                    }
+
+                } catch (UnsupportedEncodingException uee) {
+                    Log.v("TAG","An Exception given because of UrlEncodedFormEntity argument :" + uee);
+                    uee.printStackTrace();
+                }
+                return getResult;
+            }
+
+            protected void onPostExecute(Character res)
+            {
+                super.onPostExecute(res);
+                Log.v("TAG","POST : "+res);
+            }/// onPostExecute
+
+        }
+        ///////////////////////////////////
+        // 이곳에서 로그인을 위한 웹문서를 비동기 백그라운드로 요청한다.
+        SendPostReqAsyncTask sendTask = new SendPostReqAsyncTask();
+        sendTask.execute(ID, Password); // 비동기 방식 백그라운드로 받아 오기
+        ///////////////////////////////////
+        return result;
     }
 
 }
