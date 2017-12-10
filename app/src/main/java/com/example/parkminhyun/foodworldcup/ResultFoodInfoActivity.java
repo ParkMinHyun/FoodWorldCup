@@ -1,5 +1,6 @@
 package com.example.parkminhyun.foodworldcup;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +12,13 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.example.parkminhyun.foodworldcup.Data.FavoritesStoreSharedPreferences;
+import com.example.parkminhyun.foodworldcup.Review.ReviewActivity;
 
 
 public class ResultFoodInfoActivity extends AppCompatActivity {
 
     FloatingActionButton startBtn;
+    FloatingActionButton reviewFloatingActButton;
     FavoritesStoreSharedPreferences favoritesStoreSharedPreferences;
 
     private static final String TAG = "ResultFoodInfoActivity";
@@ -37,6 +40,16 @@ public class ResultFoodInfoActivity extends AppCompatActivity {
     private void propertyInit() {
 
         startBtn = (FloatingActionButton) findViewById(R.id.fab_reviewBtn);
+        reviewFloatingActButton = (FloatingActionButton) findViewById(R.id.floatActBtn_review);
+        reviewFloatingActButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent reviewIntent = new Intent(getApplicationContext(), ReviewActivity.class);
+                Toast.makeText(ResultFoodInfoActivity.this, storeURL, Toast.LENGTH_SHORT).show();
+                reviewIntent.putExtra("Store", storeURL);
+                startActivity(reviewIntent);
+            }
+        });
 
         // 현재 화면 즐겨찾기 상태 불러오기
         favoritesStoreSharedPreferences = FavoritesStoreSharedPreferences.getInstance();

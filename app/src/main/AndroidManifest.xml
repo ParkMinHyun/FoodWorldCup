@@ -43,7 +43,8 @@
         </activity>
         <activity android:name=".ResultFoodMapActivity">
         </activity>
-        <activity android:name=".ResultFoodInfoActivity" />
+        <activity android:name=".ResultFoodInfoActivity">
+        </activity>
         <activity android:name=".DrawingLotActivity"/>
         <activity android:name=".JoinActivity" />
         <service android:name=".MusicPlayerService"/>
@@ -51,6 +52,10 @@
         <activity android:name=".LoginActivity" >
         </activity>
         <activity android:name=".MemberActivity" />
+        <activity android:name=".Review.ReviewActivity" />
+        <activity android:name=".Review.PostReviewActivity"></activity>
+        <activity android:name=".FBJoinActivity"></activity>
+
     </application>
 
 </manifest>

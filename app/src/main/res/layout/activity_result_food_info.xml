@@ -24,4 +24,16 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="10dp" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatActBtn_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/review"
+        android:elevation="6dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="70dp"
+        android:layout_marginRight="10dp"/>
+
 </RelativeLayout>

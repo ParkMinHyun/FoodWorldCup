@@ -195,6 +195,7 @@ public class DrawingLotActivity extends AppCompatActivity implements NaverAsyncR
         addFoodName();
     }
 
+    // 음식점 찾기 버튼 클릭시
     public void findFoodStoreImageClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), ResultFoodMapActivity.class);
         intent.putExtra("resultFood", addedFoodNameList.get(randomNum));
@@ -202,6 +203,7 @@ public class DrawingLotActivity extends AppCompatActivity implements NaverAsyncR
         startActivity(intent);
     }
 
+    // 키보드 감추기 메소드
     protected void hideSoftKeyboard(View view) {
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(view.getWindowToken(), 0);

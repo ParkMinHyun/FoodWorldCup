@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
     TextView nickNameChangeTextView;
     TextView passWordChangeTextView;
 
+    public static String sendID;
+
+    TextView myPageID;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -64,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         // 안태현
         // 안드로이드 statusBar Color 변경
         getWindow().setStatusBarColor(Color.parseColor("#E37FA8"));
+
+        myPageID = (TextView) findViewById(R.id.txtView_nickName);
+        Intent intent = getIntent();
+        sendID=intent.getExtras().getString("ID");
+        myPageID.setText(sendID);
 
         myPageButton = (ImageButton) findViewById(R.id.imgBtn_myPage);
         myPageButton.setOnClickListener(new View.OnClickListener() {
